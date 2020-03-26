@@ -32,3 +32,5 @@ Route::get('blade', function () {
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::view('/phpinfo', 'phpinfo' );
