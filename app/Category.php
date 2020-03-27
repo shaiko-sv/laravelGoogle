@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     private static $category = [
-        'goodnews' => [
+        1 => [
             'id' => 1,
-            'name' => 'Good News',
-            'route' => 'goodnews',
+            'name' => 'Coronavirus',
+            'route' => 'coronavirus',
         ],
-        'badnews' => [
+        2 => [
             'id' => 2,
-            'name' => 'Bad News',
-            'route' => 'badnews',
+            'name' => 'Technology',
+            'route' => 'technology',
         ],
     ];
 
@@ -24,13 +24,18 @@ class Category extends Model
         return static::$category;
     }
 
-    public static function getCategoryName($name)
+    public static function getCategoryByName($name)
     {
-        return static::$category[$name];
+        $category = static::getCategoryId($name);
+        return static::$category[$category['id']];
     }
 
     public static function getCategoryId($name)
     {
-        return static::$category[$name]['id'];
+        foreach (static::$category as $item) {
+            if($item['route'] == $name) {
+                return $item;
+            }
+        }
     }
 }

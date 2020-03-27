@@ -10,16 +10,14 @@
 
 @section('content')
     <div class="row">
-        <div class="col-3"><?php /** @var \App\Category $category */
-            foreach ($category as $key => $item): ?>
-            <a href="<?=route('category.name', $key, false)?>"><?=$item['name']?></a>
-            <?php endforeach; ?>
-        </div>
+        @foreach( $category as $item )
+            <div class="col-3">
+                <hr>
+                <a href="{{ route('news.category.name', $item['route']) }}">{{ $item['name'] }}</a>
+                <hr>
+            </div>
+        @endforeach
     </div>
-    @php
-        echo "<hr>";
-    @endphp
-
 @endsection
 
 @section('footer')

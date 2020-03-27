@@ -12,11 +12,6 @@
     <h1>Admin</h1>
 
     <p>Welcome to the Admin Area.</p>
-
-    @php
-        echo "<hr>";
-    @endphp
-
 @endsection
 
 @section('footer')

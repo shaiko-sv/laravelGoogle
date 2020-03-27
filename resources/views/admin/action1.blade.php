@@ -1,4 +1,4 @@
-<!-- Stored in resources/views/admin/main.blade.php -->
+<!-- Stored in resources/views/admin/action1.blade.php -->
 
 @extends('layouts.admin')
 
@@ -12,11 +12,6 @@
     <h1>Action 1</h1>
 
     <p>This Action 1 page.</p>
-
-    @php
-        echo "<hr>";
-    @endphp
-
 @endsection
 
 @section('footer')

@@ -1,4 +1,4 @@
-<!-- Stored in resources/views/layouts/app.blade.php -->
+<!-- Stored in resources/views/layouts/admin.blade.php -->
 <!doctype html>
 <html>
     <head>
@@ -7,25 +7,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>Laravel - @yield('title')</title>
-{{--        <link rel="stylesheet" href="css/app.css">--}}
-        <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body>
         <div class="container">
             <!-- Content here -->
+            @section('navbar')
 
-        @section('navbar')
+            @show
 
-        @show
+            <div class="container">
+                @yield('content')
+            </div>
 
-        <div class="container">
-            @yield('content')
+            @section('footer')
+
+            @show
         </div>
-
-        @section('footer')
-
-        @show
-        </div>
-        <script src="{{ URL::asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

@@ -13,10 +13,6 @@
 
     <p>Welcome to the News Portal.</p>
 
-    @php
-        echo "<hr>";
-    @endphp
-
 @endsection
 
 @section('footer')

@@ -8,19 +8,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="<?=route('home',null,false)?>">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?=route('admin.action1',null,false)?>">Action 1</a>
+                <a class="nav-link" href="{{ route('admin.action1') }}">Action 1</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?=route('admin.action2',null,false)?>">Action 2</a>
+                <a class="nav-link" href="{{ route('admin.action2') }}">Action 2</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?=route('admin.logout',null,false)?>">Logout</a>
+                <a class="nav-link" href="{{ route('logout') }}">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/welcome">Laravel</a>
+                <a class="nav-link" href="/laravel">Laravel</a>
             </li>
         </ul>
     </div>

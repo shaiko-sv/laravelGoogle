@@ -8,22 +8,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="<?=route('home',null,false)?>">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?=route('home')?>">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?=route('category.all',null,false)?>">Categories</a>
+                <a class="nav-link" href="<?=route('news.category.all')?>">Categories</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?=route('news.all',null,false)?>">News</a>
+                <a class="nav-link" href="<?=route('news.all')?>">News</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?=route('admin.index',null,false)?>">Admin</a>
+                <a class="nav-link" href="<?=route('admin.index')?>">Admin</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/welcome">Laravel</a>
+                <a class="nav-link" href="/laravel">Laravel</a>
             </li>
         </ul>
     </div>

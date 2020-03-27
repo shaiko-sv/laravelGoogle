@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\News;
 
 use App\Category;
 use App\News;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,7 +16,7 @@ class CategoryController extends Controller
 
     public function show($name) {
         return view('categoryOne')
-            ->with('category', Category::getCategoryName($name))
+            ->with('category', Category::getCategoryId($name))
         ->with('news', News::getNewsByCategory($name));
     }
 }
