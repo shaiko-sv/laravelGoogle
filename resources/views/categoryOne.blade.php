@@ -10,10 +10,13 @@
 
 @section('content')
     <div>
-         <?php foreach ($news as $item): ?>
-             <a href="<?=route('news.id', $item['id'])?>"><?=$item['title']?></a>
-             <p><?=$item['text']?></p>
-         <?php endforeach; ?>
+        <p><?=$category['name']?></p>
+        <div>
+            <?php foreach ($news as $item): ?>
+            <a href="<?=route('news.id', $item['id'])?>"><?=$item['title']?></a>
+            <p><?=$item['text']?></p>
+            <?php endforeach; ?>
+        </div>
     </div>
     @php
         echo "<hr>";
