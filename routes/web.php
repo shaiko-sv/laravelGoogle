@@ -34,9 +34,10 @@ Route::group([
     'as' => 'admin.',
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
+    Route::resource('/newsCrud', 'NewsCrudController');
+    Route::resource('/usersCrud', 'UserCrudController');
 });
-Route::resource('/newsCrud', 'Admin\NewsCrudController');
-Route::resource('/usersCrud', 'Admin\UserCrudController');
+
 
 /*
 |--------------------------------------------------------------------------

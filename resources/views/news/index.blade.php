@@ -9,7 +9,9 @@
 
 
 @section('content')
+    <div class="container">
     @include('news.newsList')
+    </div>
 @endsection
 
 

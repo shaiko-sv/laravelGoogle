@@ -10,16 +10,18 @@
 
 
 @section('content')
-    <div class="row">
-        @forelse( $category as $item )
-            <div class="col-md-6 col-lg-3">
-                <hr>
-                <h2><a href="{{ route('news.category.show', $item['route']) }}">{{ $item['name'] }}</a></h2>
-                <hr>
-            </div>
-        @empty
-            <h2>No categories.</h2>
-        @endforelse
+    <div class="container">
+        <div class="row justify-content-center">
+            @forelse( $category as $item )
+                <div class="col-md-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-header"><a href="{{ route('news.category.show', $item['route']) }}">{{ $item['name'] }}</a></div>
+                    </div>
+                </div>
+            @empty
+                <h2>No categories.</h2>
+            @endforelse
+        </div>
     </div>
 @endsection
 

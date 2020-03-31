@@ -9,9 +9,18 @@
 
 
 @section('content')
-    <h1>Admin</h1>
-
-    <p>Welcome to the Admin Area.</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1>Admin</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <p>Welcome to the Admin Area.</p>
+            </div>
+        </div>
+    </div>
 @endsection
 
 

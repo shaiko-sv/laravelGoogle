@@ -7,13 +7,17 @@ use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index() {
-        return view('admin.index')->with('user', 'admin');
+        return view('admin.index');
     }
-
-    public function action2() {
-        return view('admin.action2')->with('user', 'admin');
-    }
-
-
 }

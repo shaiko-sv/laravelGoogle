@@ -11,24 +11,21 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
-        <div class="container" id="app">
+        <div id="app">
 
             <!-- Content here -->
-            @section('menu')
+            @yield('menu')
 
-            @show
 
-            <div class="container">
+            <div class="py-4">
 
-                @section('content')
+                @yield('content')
 
-                @show
             </div>
 
-            @section('footer')
+            @yield('footer')
 
-            @show
-{{--            {!! $menu !!}--}}
+{{--        {!! $menu !!}    --}}
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>

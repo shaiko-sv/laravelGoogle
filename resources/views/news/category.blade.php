@@ -10,12 +10,11 @@
 
 
 @section('content')
-    <div>
-
-        <h2>{{ $category }}</h2>
-        <div>
-            @include('news.newsList')
+    <div class="container">
+        <div class="row justify-content-center">
+            <h2>{{ $category }}</h2>
         </div>
+        @include('news.newsList')
     </div>
 @endsection
 
