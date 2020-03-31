@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
-
-@section('title', ' | About')
+@section('title', ' | All News')
 
 
 @section('menu')
@@ -10,8 +9,7 @@
 
 
 @section('content')
-    <h1>About</h1>
-
+    @include('news.newsList')
 @endsection
 
 

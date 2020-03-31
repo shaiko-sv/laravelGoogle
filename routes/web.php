@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('main');
+Route::get('/home', 'HomeController@home')->name('home');
+
 Route::redirect('/logout', '/')->name('logout');
 //    Route::get('/logout', 'HomeController@logout')->name('logout');
 
@@ -32,21 +34,19 @@ Route::group([
     'as' => 'admin.',
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
-    Route::get('/action1', 'IndexController@action1')->name('action1');
-    Route::get('/action2', 'IndexController@action2')->name('action2');
 });
+Route::resource('/newsCrud', 'Admin\NewsCrudController');
+Route::resource('/usersCrud', 'Admin\UserCrudController');
 
 /*
 |--------------------------------------------------------------------------
 | Site Routes
 |--------------------------------------------------------------------------
 |
-| /category
 | /news
+| /new/category
 |
 */
-
-
 
 Route::group([
     'prefix' => 'news',
@@ -54,18 +54,17 @@ Route::group([
     'as' => 'news.',
 
 ], function () {
-    Route::get('/', 'NewsController@index')->name('all');
-    Route::get('/{id}', 'NewsController@show')
-        ->name('id')
+    Route::get('/', 'NewsController@index')->name('index');
+    Route::get('/one/{id}', 'NewsController@show')
+        ->name('show')
         ->where('id','[0-9]+');
 
     Route::group([
-        'prefix' => 'category',
         'as' => 'category.',
     ], function () {
-        Route::get('/', 'CategoryController@index')->name('all');
-        Route::get('/{name}', 'CategoryController@show')
-            ->name('name')
+        Route::get('/category', 'CategoryController@index')->name('index');
+        Route::get('/category/{name}', 'CategoryController@show')
+            ->name('show')
             ->where('name','[a-z0-9]+');
     });
 });
@@ -78,3 +77,7 @@ Route::get('/about', function () {
 Route::get('/laravel', function () {
     return view('welcome');
 });
+
+Route::view('/vue', 'vue')->name('vue');
+
+Auth::routes();

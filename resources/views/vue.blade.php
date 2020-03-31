@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 
-@section('title', ' | About')
+@section('title', ' | Vue')
 
 
 @section('menu')
@@ -10,8 +10,11 @@
 
 
 @section('content')
-    <h1>About</h1>
+    <div id="app">
+        <example-component>
 
+        </example-component>
+    </div>
 @endsection
 
 

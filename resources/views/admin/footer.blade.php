@@ -1,5 +1,3 @@
-<!-- Stored in resources/views/admin/footer.blade.php -->
-
 <!-- Footer -->
 <footer class="page-footer font-small special-color-dark pt-4">
     <hr>

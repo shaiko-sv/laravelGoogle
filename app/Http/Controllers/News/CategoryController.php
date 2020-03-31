@@ -11,12 +11,18 @@ class CategoryController extends Controller
 {
     public function index() {
 
-        return view('category')->with('category', Category::getCategory());
+        return view('news.categories')->with('category', Category::getCategories());
     }
 
     public function show($name) {
-        return view('categoryOne')
-            ->with('category', Category::getCategoryId($name))
-        ->with('news', News::getNewsByCategory($name));
+        $id = Category::getCategoryIdByName($name);
+        if ($id) {
+            return view('news.category')
+                ->with('category', Category::getCategoryNameById($id))
+                ->with('news', News::getNewsByCategoryName($name));
+        } else {
+            return redirect()->route('news.category.index');
+        }
+
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    private static $category = [
+    private static $categories = [
         1 => [
             'id' => 1,
             'name' => 'Coronavirus',
@@ -19,23 +19,26 @@ class Category extends Model
         ],
     ];
 
-    public static function getCategory()
+    public static function getCategories()
     {
-        return static::$category;
+        return static::$categories;
     }
 
-    public static function getCategoryByName($name)
+    public static function getCategoryNameById($id)
     {
-        $category = static::getCategoryId($name);
-        return static::$category[$category['id']];
+        $category = static::$categories[$id];
+        return $category['name'];
     }
 
-    public static function getCategoryId($name)
+    public static function getCategoryIdByName($name)
     {
-        foreach (static::$category as $item) {
+        $id = null;
+        foreach (static::$categories as $item) {
             if($item['route'] == $name) {
-                return $item;
+                $id = $item['id'];
+                break;
             }
         }
+        return $id;
     }
 }

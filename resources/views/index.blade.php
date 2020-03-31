@@ -1,12 +1,13 @@
-<!-- Stored in resources/views/main.blade.php -->
+@extends('layouts.main')
 
-@extends('layouts.app')
 
-@section('title', 'Geekbrains')
+@section('title', ' | Main')
 
-@section('navbar')
-    @include('navbar')
+
+@section('menu')
+    @include('menu')
 @endsection
+
 
 @section('content')
     <h1>Welcome</h1>
@@ -14,6 +15,7 @@
     <p>Welcome to the News Portal.</p>
 
 @endsection
+
 
 @section('footer')
     @include('footer')

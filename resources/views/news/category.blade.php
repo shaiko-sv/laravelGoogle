@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 
-@section('title', ' | About')
+@section('title', '| News by Category')
 
 
 @section('menu')
@@ -10,8 +10,13 @@
 
 
 @section('content')
-    <h1>About</h1>
+    <div>
 
+        <h2>{{ $category }}</h2>
+        <div>
+            @include('news.newsList')
+        </div>
+    </div>
 @endsection
 
 

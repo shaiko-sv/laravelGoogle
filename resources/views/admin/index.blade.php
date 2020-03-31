@@ -1,18 +1,19 @@
-<!-- Stored in resources/views/admin/main.blade.php -->
+@extends('layouts.main')
 
-@extends('layouts.admin')
+@section('title', ' | Admin')
 
-@section('title', 'Geekbrains')
 
-@section('navbar')
-    @include('admin.navbar')
+@section('menu')
+    @include('admin.menu')
 @endsection
+
 
 @section('content')
     <h1>Admin</h1>
 
     <p>Welcome to the Admin Area.</p>
 @endsection
+
 
 @section('footer')
     @include('admin.footer')

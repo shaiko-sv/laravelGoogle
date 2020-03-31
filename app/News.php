@@ -19,7 +19,8 @@ class News extends Model
                         60 or 80 percent of people — is resistant to COVID-19 to stifle the disease’s spread from
                         person to person. That is the end goal, although no one knows exactly how long it will take
                         to get there.',
-            'category_id' => 1
+            'isPrivate' => true,
+            'category_id' => 1,
         ],
         2 => [
             'id' => 2,
@@ -36,6 +37,7 @@ class News extends Model
                        and DuckDuckGo (with a lot of customized preferences on both), from Google’s Chrome browser
                        and search. I’ve made a lot of other such switches in my digital life. So not all that I
                        write here is bullshit.',
+            'isPrivate' => false,
             'category_id' => 2,
         ],
         3 => [
@@ -52,6 +54,7 @@ class News extends Model
                        access to a bed, or a nurse, or a ventilator, than necessary. The shelter in place
                        restrictions make absolute sense. They are working in New York. I know they are hard. And
                        feel hopeless. But they aren’t.',
+            'isPrivate' => false,
             'category_id' => 1,
         ],
         4 => [
@@ -70,6 +73,7 @@ class News extends Model
                        mandatory to know which will reign in 2020. In order to know this quickly, let’s follow
                        some of the stats which may help us to find out which is better.<br><br>
                        According to Stackoverflow survey, React.js is the most loved framework, followed by Vue.js.',
+            'isPrivate' => false,
             'category_id' => 2,
         ],
     ];
@@ -81,19 +85,22 @@ class News extends Model
 
     public static function getNewsId($id)
     {
-        return static::$news[$id];
+        if (array_key_exists($id, static::$news)) {
+            return static::$news[$id];
+        } else {
+            return Null;
+        }
     }
 
-    public static function getNewsByCategory($categoryName)
+    public static function getNewsByCategoryName($name)
     {
-        $newsByCategory = [];
-        $category = Category::getCategoryByName($categoryName);
-        $categoryId = $category['id'];
+        $news = [];
+        $id = Category::getCategoryIdByName($name);
         foreach (static::$news as $item) {
-            if ($item['category_id'] == $categoryId) {
-                array_push($newsByCategory, $item);
+            if ($item['category_id'] == $id) {
+                $news[] = $item;
             }
         }
-        return $newsByCategory;
+        return $news;
     }
 }
