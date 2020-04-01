@@ -17,7 +17,7 @@
                 <div class="col-sm-6">
                     <h2>Manage <b>News</b></h2>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 d-flex justify-content-end">
                     <a href="#addNewsModal" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle"></i> <span>Add New News</span></a>
                     <a href="#deleteNewsModal" class="btn btn-danger" data-toggle="modal"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
                 </div>
