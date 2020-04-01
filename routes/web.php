@@ -76,9 +76,9 @@ Route::get('/about', function () {
 
 
 Route::get('/laravel', function () {
-    return view('welcome');
+    return view('admin.welcome');
 });
 
-Route::view('/vue', 'vue')->name('vue');
+Route::view('/vue', 'admin.vue')->name('vue');
 
 Auth::routes();

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', ' | All News')
+@section('title', 'All News')
 
 
 @section('menu')

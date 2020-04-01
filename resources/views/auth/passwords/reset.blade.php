@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Reset Password')
+
 @section('menu')
     @include('auth.menu')
 @endsection

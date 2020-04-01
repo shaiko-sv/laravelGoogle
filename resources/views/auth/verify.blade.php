@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Verify')
+
 @section('menu')
     @include('auth.menu')
 @endsection

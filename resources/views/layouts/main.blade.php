@@ -7,8 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-        <title>{{ config('app.name', 'Laravel') }} @yield('title')</title>
+        <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
 
     </head>
     <body>
@@ -45,6 +44,7 @@
                             @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        @dd(Auth::user())
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
 

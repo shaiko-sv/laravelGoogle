@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', ' | Admin')
+@section('title', 'Admin')
 
 
 @section('menu')

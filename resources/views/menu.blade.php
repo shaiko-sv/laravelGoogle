@@ -14,10 +14,4 @@
                 <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
             </li>
             @endauth
-            <li class="nav-item">
-                <a class="nav-link" href="/laravel">Laravel</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('vue') }}">VueJS</a>
-            </li>
         </ul>

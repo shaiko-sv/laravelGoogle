@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 
-@section('title', ' | Main')
+@section('title', 'Main')
 
 
 @section('menu')
