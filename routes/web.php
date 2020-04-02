@@ -37,6 +37,9 @@ Route::group([
     Route::match(['get', 'post'], '/newsCrud/create', 'NewsCrudController@create')->name('newsCrud.create');
     Route::resource('/newsCrud', 'NewsCrudController', ['except' => 'create']);
     Route::resource('/usersCrud', 'UserCrudController');
+    Route::resource('/categoriesCrud', 'CategoriesCrudController');
+    Route::get('/downloadImage', 'IndexController@downloadImage')->name('downloadImage');
+    Route::get('/downloadJson', 'IndexController@downloadJson')->name('downloadJson');
 });
 
 

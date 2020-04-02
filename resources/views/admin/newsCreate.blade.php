@@ -2,7 +2,6 @@
 
 @section('title', 'Create News')
 
-
 @section('menu')
     @include('admin.menu')
 @endsection
@@ -13,7 +12,17 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ __('Create new News') }}</div>
+                    <div class="card-header">
+                        {{ __('Create new News') }}
+                        @if (session('error'))
+                            @component('alert')
+                                @slot('title')
+                                    Error
+                                @endslot
+                                {{ session('error') }}
+                            @endcomponent
+                        @endif
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('admin.newsCrud.create') }}">
                             @csrf
@@ -32,7 +41,7 @@
 
                                 <div class="col-md-8">
                                     <input id="newsShort" type="text" class="form-control"
-                                           name="short" value="{{ old('short') }}" required>
+                                           name="shortText" value="{{ old('shortText') }}" required>
                                 </div>
                             </div>
 
@@ -50,10 +59,10 @@
 
                                 <div class="col-md-3">
                                     <select id="newsCategory" class="form-control"
-                                            name="category" required>
+                                            name="category_id" required>
                                     @forelse($categories as $item)
                                             <option value="{{ $item['id'] }}"
-                                                    @if ($item['id'] == old('category')) selected @endif>{{ $item['name'] }}</option>
+                                                    @if ($item['id'] == old('category_id')) selected @endif>{{ $item['name'] }}</option>
                                     @empty
                                             <option value="null">No categories</option>
                                     @endforelse

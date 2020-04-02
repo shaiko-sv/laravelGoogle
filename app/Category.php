@@ -6,35 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    private static $categories = [
-        1 => [
-            'id' => 1,
-            'name' => 'Coronavirus',
-            'route' => 'coronavirus',
-        ],
-        2 => [
-            'id' => 2,
-            'name' => 'Technology',
-            'route' => 'technology',
-        ],
-    ];
+    private static $path = 'public/';
+    private static $fileStorageCategories = 'categoriesJson.txt';
+
+    public static function setCategories()
+    {
+        $categories = [];
+        $pathToFile = self::$path.self::$fileStorageCategories;
+        if(\Storage::exists($pathToFile)) {
+            $categories = json_decode(\Storage::get($pathToFile), true);
+        }
+        return $categories;
+    }
 
     public static function getCategories()
     {
-        return static::$categories;
+        return static::setCategories();
     }
 
     public static function getCategoryNameById($id)
     {
-        $category = static::$categories[$id];
+        $category = static::setCategories()[$id];
         return $category['name'];
+    }
+
+    public static function getCategorySlugById($id)
+    {
+        $category = static::setCategories()[$id];
+        return $category['slug'];
     }
 
     public static function getCategoryIdByName($name)
     {
         $id = null;
-        foreach (static::$categories as $item) {
-            if($item['route'] == $name) {
+        foreach (static::setCategories() as $item) {
+            if($item['slug'] == $name) {
                 $id = $item['id'];
                 break;
             }

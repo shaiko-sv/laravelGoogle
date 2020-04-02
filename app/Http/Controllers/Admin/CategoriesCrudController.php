@@ -3,22 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class NewsCrudController extends Controller
+class CategoriesCrudController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +15,7 @@ class NewsCrudController extends Controller
      */
     public function index()
     {
-        return view('admin.newsCrud')->with('news', News::getNews());
+        return view('admin.categoriesCrud')->with('categories', Category::getCategories());
     }
 
     /**
@@ -36,28 +25,25 @@ class NewsCrudController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->isMethod('post')) {
+        if($request->query()) {
             $request->flash();
 
             $path = 'storage/';
-            $fileName = 'newsJson.txt';
+            $fileName = 'categoriesJson.txt';
             $record = $request->except('_token');
-
-            if(!array_key_exists('isPrivate',$record)){
-                $record += ['isPrivate' => 0];
+            if($record['slug'] === null){
+                $record['slug'] = \Str::slug($record['name']);
             };
-
             $id = IndexController::addRecordToJsonFile($path.$fileName, $record);
             if($id){
-                return redirect(route('news.show', ['id' => $id]));
+                return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]));
             } else {
-                return redirect(route('admin.newsCrud.create'))->with('error',  'Cannot add News! :(');
-//                return \Redirect::route('admin.newsCrud.create');
+                return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot add Categoty! :(');
             }
         }
 
-        return view('admin.newsCreate', ['categories' => Category::getCategories()]
-        );
+        return view('admin.categoryCreate',
+                        ['categories' => Category::getCategories()]);
     }
 
     /**
