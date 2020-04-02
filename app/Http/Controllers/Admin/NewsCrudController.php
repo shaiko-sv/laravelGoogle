@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,9 +34,16 @@ class NewsCrudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if($request->isMethod('post')) {
+            $request->flash();
+
+            return redirect()->route('admin.newsCrud.create');
+        }
+        return view('admin.newsCreate', [
+                'categories' => Category::getCategories()]
+        );
     }
 
     /**
