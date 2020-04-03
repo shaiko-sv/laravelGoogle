@@ -36,26 +36,22 @@ class NewsCrudController extends Controller
      */
     public function create(Request $request)
     {
+//        Check if request method is POST
         if($request->isMethod('post')) {
+//          Store session data to pass back in form in case of some error
             $request->flash();
 
-            $path = 'storage/';
-            $fileName = 'newsJson.txt';
-            $record = $request->except('_token');
+            $record = $request->except('_token'); // Receive data except _token
 
-            if(!array_key_exists('isPrivate',$record)){
-                $record += ['isPrivate' => 0];
-            };
-
-            $id = IndexController::addRecordToJsonFile($path.$fileName, $record);
+            $id = News::createNews($record);
             if($id){
-                return redirect(route('news.show', ['id' => $id]));
+                return redirect(route('news.show', ['id' => $id])); // if record was added it open recent added news to see it
             } else {
+                // if record was not added it come back to form with error message
                 return redirect(route('admin.newsCrud.create'))->with('error',  'Cannot add News! :(');
-//                return \Redirect::route('admin.newsCrud.create');
             }
         }
-
+        // return view when enter first time
         return view('admin.newsCreate', ['categories' => Category::getCategories()]
         );
     }

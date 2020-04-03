@@ -31,20 +31,4 @@ class IndexController extends Controller
                     ->header('Content-Disposition', 'attachment; filename = "json.txt"')
                     ->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
-
-    public static function addRecordToJsonFile ($file, $record)
-    {
-        $fileContent = [];
-        if(!\File::exists($file)) {
-            $id = 1;
-        } else {
-            $fileContent = json_decode(\File::get($file), true);
-            $id = max(array_keys($fileContent)) + 1;
-        }
-        $record += ['id' => $id];
-        $fileContent += [$id => $record];
-        \File::put($file, json_encode($fileContent));
-
-        return $id;
-    }
 }

@@ -12,7 +12,7 @@ class Category extends Model
     public static function setCategories()
     {
         $categories = [];
-        $pathToFile = self::$path.self::$fileStorageCategories;
+        $pathToFile = static::$path . static::$fileStorageCategories;
         if(\Storage::exists($pathToFile)) {
             $categories = json_decode(\Storage::get($pathToFile), true);
         }
@@ -46,5 +46,16 @@ class Category extends Model
             }
         }
         return $id;
+    }
+
+    public static function createCategory($record)
+    {
+        // If slug not informed...
+        if($record['slug'] === null){
+            $record['slug'] = \Str::slug($record['name']); // we use helper to generate it
+        };
+
+        // Add record to Json file and return ID of new record
+        return Json::addRecordToJsonFile(static::$path . static::$fileStorageCategories, $record);
     }
 }

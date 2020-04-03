@@ -25,23 +25,24 @@ class CategoriesCrudController extends Controller
      */
     public function create(Request $request)
     {
+        // As GET method is default we check if we have some data
         if($request->query()) {
+//            Store session data to pass back in form in case of some error
             $request->flash();
 
-            $path = 'storage/';
-            $fileName = 'categoriesJson.txt';
-            $record = $request->except('_token');
-            if($record['slug'] === null){
-                $record['slug'] = \Str::slug($record['name']);
-            };
-            $id = IndexController::addRecordToJsonFile($path.$fileName, $record);
+            $record = $request->except('_token'); // Receive data except _token
+
+            $id = Category::createCategory($record);
+
             if($id){
+                // if record was added it open recent added category to see it
                 return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]));
             } else {
+                // if record was not added it come back to form with error message
                 return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot add Categoty! :(');
             }
         }
-
+        // return view when enter first time
         return view('admin.categoryCreate',
                         ['categories' => Category::getCategories()]);
     }
