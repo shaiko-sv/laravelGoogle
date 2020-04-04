@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    private static $fileStorageCategories = 'categoriesJson.txt';
+    private static $fileStorageCategories = 'categories.json';
 
     public static function getCategories()
     {

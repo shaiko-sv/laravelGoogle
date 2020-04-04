@@ -31,7 +31,7 @@ class CategoriesCrudController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function create(Request $request)
     {
@@ -44,11 +44,12 @@ class CategoriesCrudController extends Controller
 
             $record = Category::createCategory($record);
 
-            if($record && ($record[0] != false)){
+            if($record && !isset($record[0])){
                 // if record was created let's store it
                 $id = $this->store($record);
                 if($id) {
-                    return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]));
+                    return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]))
+                                    ->with('success', 'Category successfully created!');
                 } else {
                     return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot write data to file.');
                 }

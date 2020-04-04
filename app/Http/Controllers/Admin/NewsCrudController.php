@@ -47,7 +47,8 @@ class NewsCrudController extends Controller
 
             if($record){
                 $id = $this->store($record);
-                return redirect(route('news.show', ['id' => $id])); // if record was added it open recent added news to see it
+                return redirect(route('news.show', ['id' => $id]))
+                                ->with('success', 'News successfully created!');; // if record was added it open recent added news to see it
             } else {
                 // if record was not added it come back to form with error message
                 return redirect(route('admin.newsCrud.create'))->with('error',  'Cannot add News! :(');

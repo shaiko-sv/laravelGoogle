@@ -11,6 +11,9 @@
 
     </head>
     <body>
+
+{{--    @dump (session())--}}
+
         <div id="app">
 
             <!-- Content here -->
@@ -64,7 +67,22 @@
                     </div>
                 </div>
             </nav>
-
+            @if (session('success'))
+                @component('success')
+                    @slot('title')
+                        Success
+                    @endslot
+                    {{ session('success') }}
+                @endcomponent
+            @endif
+            @if (session('error'))
+                @component('alert')
+                    @slot('title')
+                        Error
+                    @endslot
+                    {{ session('error') }}
+                @endcomponent
+            @endif
             <div class="py-4">
 
                 @yield('content')

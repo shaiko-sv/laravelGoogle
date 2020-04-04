@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class News extends Model
 {
-    private static $fileStorageNews = 'newsJson.txt';
+    private static $fileStorageNews = 'news.json';
 
     /**
      * @return array|mixed
