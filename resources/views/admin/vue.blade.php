@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 
-@section('title', ' | Vue')
+@section('title', 'Vue')
 
 
 @section('menu')
-    @include('menu')
+    @include('admin.menu')
 @endsection
 
 

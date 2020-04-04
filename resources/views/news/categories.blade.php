@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 
-@section('title', '| Categories')
+@section('title', 'Categories')
 
 
 @section('menu')
@@ -15,11 +15,13 @@
             @forelse( $category as $item )
                 <div class="col-md-6 col-lg-3">
                     <div class="card">
-                        <div class="card-header"><a href="{{ route('news.category.show', $item['route']) }}">{{ $item['name'] }}</a></div>
+                        <div class="card-header"><a href="{{ route('news.category.show', $item['slug']) }}">{{ $item['name'] }}</a></div>
                     </div>
                 </div>
             @empty
-                <h2>No categories.</h2>
+                <div class="card">
+                    <div class="card-header">No categories.</div>
+                </div>
             @endforelse
         </div>
     </div>

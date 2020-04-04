@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', '| Action 1')
+@section('title', 'Manage Users')
 
 
 @section('menu')
@@ -17,7 +17,7 @@
                 <div class="col-sm-6">
                     <h2>Manage <b>Users</b></h2>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 d-flex justify-content-end">
                     <a href="#addUserModal" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle"></i> <span>Add New User</span></a>
                     <a href="#deleteUserModal" class="btn btn-danger" data-toggle="modal"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
                 </div>
@@ -27,10 +27,10 @@
             <thead>
             <tr>
                 <th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="selectAll">
+                        <label for="selectAll"></label>
+                    </span>
                 </th>
                 <th>Name</th>
                 <th>Email</th>
@@ -42,10 +42,10 @@
             <tbody>
             <tr>
                 <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                        <label for="checkbox1"></label>
+                    </span>
                 </td>
                 <td>Thomas Hardy</td>
                 <td>thomashardy@mail.com</td>
@@ -60,10 +60,10 @@
             </tr>
             <tr>
                 <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox2" name="options[]" value="1">
+                        <label for="checkbox2"></label>
+                    </span>
                 </td>
                 <td>Dominique Perrier</td>
                 <td>dominiqueperrier@mail.com</td>
@@ -78,10 +78,10 @@
             </tr>
             <tr>
                 <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox3" name="options[]" value="1">
+                        <label for="checkbox3"></label>
+                    </span>
                 </td>
                 <td>Maria Anders</td>
                 <td>mariaanders@mail.com</td>
@@ -96,10 +96,10 @@
             </tr>
             <tr>
                 <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox4" name="options[]" value="1">
+                        <label for="checkbox4"></label>
+                    </span>
                 </td>
                 <td>Fran Wilson</td>
                 <td>franwilson@mail.com</td>
@@ -114,10 +114,10 @@
             </tr>
             <tr>
                 <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox5" name="options[]" value="1">
+                        <label for="checkbox5"></label>
+                    </span>
                 </td>
                 <td>Martin Blank</td>
                 <td>martinblank@mail.com</td>

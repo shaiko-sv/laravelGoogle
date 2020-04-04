@@ -34,8 +34,12 @@ Route::group([
     'as' => 'admin.',
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
-    Route::resource('/newsCrud', 'NewsCrudController');
+    Route::match(['get', 'post'], '/newsCrud/create', 'NewsCrudController@create')->name('newsCrud.create');
+    Route::resource('/newsCrud', 'NewsCrudController', ['except' => 'create']);
     Route::resource('/usersCrud', 'UserCrudController');
+    Route::resource('/categoriesCrud', 'CategoriesCrudController');
+    Route::get('/downloadImage', 'IndexController@downloadImage')->name('downloadImage');
+    Route::get('/downloadJson', 'IndexController@downloadJson')->name('downloadJson');
 });
 
 
@@ -76,9 +80,9 @@ Route::get('/about', function () {
 
 
 Route::get('/laravel', function () {
-    return view('welcome');
+    return view('admin.welcome');
 });
 
-Route::view('/vue', 'vue')->name('vue');
+Route::view('/vue', 'admin.vue')->name('vue');
 
 Auth::routes();

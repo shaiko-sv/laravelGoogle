@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-     <div class="col-md-8">
+     <div class="col-md-12">
          @forelse( $news as $item )
              @if(is_array($item))
                   <div class="card">
@@ -19,7 +19,6 @@
                   </div>
              @else
                  <div class="card">
-
                      <div class="card-header">{{ $news['title'] }}</div>
                      <div class="card-body">
                          @guest
@@ -38,7 +37,9 @@
              @endif
 
          @empty
-              <h2>No news.</h2>
+             <div class="card">
+                 <div class="card-header">No news.</div>
+             </div>
          @endforelse
 
          </div>

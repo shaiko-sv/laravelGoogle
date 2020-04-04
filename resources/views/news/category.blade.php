@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 
-@section('title', '| News by Category')
+@section('title', 'News by Category')
 
 
 @section('menu')

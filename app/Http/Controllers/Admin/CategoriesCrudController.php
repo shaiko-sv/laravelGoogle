@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class NewsCrudController extends Controller
+class CategoriesCrudController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +25,7 @@ class NewsCrudController extends Controller
      */
     public function index()
     {
-        return view('admin.newsCrud')->with('news', News::getNews());
+        return view('admin.categoriesCrud')->with('categories', Category::getCategories());
     }
 
     /**
@@ -36,26 +35,31 @@ class NewsCrudController extends Controller
      */
     public function create(Request $request)
     {
-//        Check if request method is POST
-        if($request->isMethod('post')) {
-//          Store session data to pass back in form in case of some error
+        // As GET method is default we check if we have some data
+        if($request->query()) {
+//            Store session data to pass back in form in case of some error
             $request->flash();
 
             $record = $request->except('_token'); // Receive data except _token
 
-            $record = News::createNews($record);
+            $record = Category::createCategory($record);
 
-            if($record){
+            if($record && ($record[0] != false)){
+                // if record was created let's store it
                 $id = $this->store($record);
-                return redirect(route('news.show', ['id' => $id])); // if record was added it open recent added news to see it
+                if($id) {
+                    return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]));
+                } else {
+                    return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot write data to file.');
+                }
             } else {
                 // if record was not added it come back to form with error message
-                return redirect(route('admin.newsCrud.create'))->with('error',  'Cannot add News! :(');
+                return redirect(route('admin.categoriesCrud.create'))->with('error',  $record[1]);
             }
         }
         // return view when enter first time
-        return view('admin.newsCreate', ['categories' => Category::getCategories()]
-        );
+        return view('admin.categoryCreate',
+                        ['categories' => Category::getCategories()]);
     }
 
     /**
@@ -67,7 +71,7 @@ class NewsCrudController extends Controller
      */
     public function store($record = [], Request $request = null)
     {
-        return News::storeNews($record);
+       return Category::storeCategory($record);
     }
 
     /**

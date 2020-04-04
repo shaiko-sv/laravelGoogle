@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Manage News')
+@section('title', 'Manage Categories')
 
 
 @section('menu')
@@ -15,10 +15,10 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Manage <b>News</b></h2>
+                    <h2>Manage <b>Categories</b></h2>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-end">
-                    <a href="{{ route('admin.newsCrud.create') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> <span>Add New News</span></a>
+                    <a href="{{ route('admin.categoriesCrud.create') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> <span>Add New Category</span></a>
                     <a href="#" class="btn btn-danger"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
                 </div>
             </div>
@@ -33,16 +33,13 @@
 							</span>
                 </th>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Short Text</th>
-                <th>Full Text</th>
-                <th>Private</th>
-                <th>Category</th>
+                <th>Name</th>
+                <th>Slug</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            @forelse($news as $item)
+            @forelse($categories as $item)
             <tr>
                 <td>
 							<span class="custom-checkbox">
@@ -51,11 +48,8 @@
 							</span>
                 </td>
                 <td>{{ $item['id'] }}</td>
-                <td>{{ $item['title'] }}</td>
-                <td>{{ $item['shortText'] }}</td>
-                <td>{{ $item['text'] }}</td>
-                <td>{{ $item['isPrivate'] }}</td>
-                <td>{{ $item['category_id'] }}</td>
+                <td>{{ $item['name'] }}</td>
+                <td>{{ $item['slug'] }}</td>
                 <td>
 {{--                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
                     <a href="#editNewsModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>

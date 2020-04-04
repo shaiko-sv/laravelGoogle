@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', ' | Admin')
+@section('title', 'Admin')
 
 
 @section('menu')
@@ -11,12 +11,12 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <h1>Admin</h1>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <p>Welcome to the Admin Area.</p>
             </div>
         </div>
