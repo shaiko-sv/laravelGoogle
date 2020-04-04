@@ -24,7 +24,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.newsCrud.create') }}">
+                        <form enctype="multipart/form-data" method="POST" action="{{ route('admin.newsCrud.create') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -51,6 +51,14 @@
                                 <div class="col-md-8">
                                     <textarea id="newsText" type="text" class="form-control" rows="5"
                                              name="text" required>{{ old('text') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="newsImage" class="col-md-2 col-form-label text-md-right">{{ __('News Image') }}</label>
+
+                                <div class="col-md-8">
+                                    <input type="file" name="image" id="newsImage">
                                 </div>
                             </div>
 

@@ -38,6 +38,12 @@ class NewsCrudController extends Controller
     {
 //        Check if request method is POST
         if($request->isMethod('post')) {
+            $url = null;
+            if ($request->file('image')) {
+                $path = \Storage::putFile('/public/img', $request->file('image'));
+                $url = \Storage::url($path);
+            }
+
 //          Store session data to pass back in form in case of some error
             $request->flash();
 
