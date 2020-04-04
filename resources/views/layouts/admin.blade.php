@@ -1,4 +1,4 @@
-<!-- Stored in resources/views/layouts/app.blade.php -->
+<!-- Stored in resources/views/layouts/admin.blade.php -->
 <!doctype html>
 <html>
     <head>

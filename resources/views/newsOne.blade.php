@@ -1,4 +1,4 @@
-<!-- Stored in resources/views/main.blade.php -->
+<!-- Stored in resources/views/newsOne.blade.php -->
 
 @extends('layouts.app')
 
@@ -9,9 +9,10 @@
 @endsection
 
 @section('content')
-    <h1>Welcome</h1>
-
-    <p>Welcome to the News Portal.</p>
+    <div>
+        <h2>{{ $news['title'] }}</h2>
+        <p>{!! $news['text'] !!}</p>
+    </div>
 
 @endsection
 

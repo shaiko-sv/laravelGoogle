@@ -11,10 +11,6 @@
 @section('content')
     <h1>About</h1>
 
-    @php
-        echo "<hr>";
-    @endphp
-
 @endsection
 
 @section('footer')

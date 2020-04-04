@@ -9,12 +9,15 @@
 @endsection
 
 @section('content')
-    <h1>News</h1>
+    <hr>
+    <div>
+         @foreach( $news as $item )
+             <a href="<?=route('news.id', $item['id'])?>">{{ $item['title'] }}</a>
+             <p>{{  $item['shortText'] }}</p>
+            <hr>
+         @endforeach
 
-    @php
-        echo "<hr>";
-    @endphp
-
+    </div>
 @endsection
 
 @section('footer')
