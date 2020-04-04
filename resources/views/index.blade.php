@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 
-@section('title', ' | About')
+@section('title', ' | Main')
 
 
 @section('menu')
@@ -13,11 +13,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1>About</h1>
+                <h1>Welcome</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <p>Welcome to the News Portal.</p>
             </div>
         </div>
     </div>
-
 @endsection
 
 
