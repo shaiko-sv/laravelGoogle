@@ -26,8 +26,8 @@ class NewsTest extends TestCase
      * @return void
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function testSetNews()
+    public function testGetNews()
     {
-        $this->assertNotEmpty(News::setNews());
+        $this->assertNotEmpty(News::getNews());
     }
 }

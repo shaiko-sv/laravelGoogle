@@ -19,7 +19,6 @@
                   </div>
              @else
                  <div class="card">
-
                      <div class="card-header">{{ $news['title'] }}</div>
                      <div class="card-body">
                          @guest
@@ -38,7 +37,9 @@
              @endif
 
          @empty
-              <h2>No news.</h2>
+             <div class="card">
+                 <div class="card-header">No news.</div>
+             </div>
          @endforelse
 
          </div>

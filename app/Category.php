@@ -6,40 +6,36 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    private static $path = 'public/';
     private static $fileStorageCategories = 'categoriesJson.txt';
-
-    public static function setCategories()
-    {
-        $categories = [];
-        $pathToFile = static::$path . static::$fileStorageCategories;
-        if(\Storage::exists($pathToFile)) {
-            $categories = json_decode(\Storage::get($pathToFile), true);
-        }
-        return $categories;
-    }
 
     public static function getCategories()
     {
-        return static::setCategories();
+        $fileName = static::$fileStorageCategories;
+        if(\Storage::disk('public')->exists($fileName)) {
+            return json_decode(\Storage::disk('public')->get($fileName), true);
+        }
+        return [];
     }
 
     public static function getCategoryNameById($id)
     {
-        $category = static::setCategories()[$id];
-        return $category['name'];
+        if (array_key_exists($id, self::getCategories())) {
+            return self::getCategories()[$id]['name'];
+        } else {
+            return Null;
+        }
     }
 
     public static function getCategorySlugById($id)
     {
-        $category = static::setCategories()[$id];
-        return $category['slug'];
+        $category = static::getCategories();
+        return $category[$id]['slug'];
     }
 
     public static function getCategoryIdByName($name)
     {
         $id = null;
-        foreach (static::setCategories() as $item) {
+        foreach (static::getCategories() as $item) {
             if($item['slug'] == $name) {
                 $id = $item['id'];
                 break;
@@ -54,8 +50,19 @@ class Category extends Model
         if($record['slug'] === null){
             $record['slug'] = \Str::slug($record['name']); // we use helper to generate it
         };
+        // Check if category already exists
+        foreach (static::getCategories() as $item){
+            if($item['slug'] == $record['slug']) {
+                return [false, 'Category already exist.'];
+            }
+        }
+        // Return complete record
+        return $record;
+    }
 
+    public static function storeCategory($record)
+    {
         // Add record to Json file and return ID of new record
-        return Json::addRecordToJsonFile(static::$path . static::$fileStorageCategories, $record);
+        return  Json::addRecordToJsonFile(static::$fileStorageCategories, $record);
     }
 }

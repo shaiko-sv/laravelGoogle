@@ -15,13 +15,13 @@ class JsonTest extends TestCase
      */
     public function testAddRecordToJsonFile()
     {
-        if(\Storage::exists('public/test.txt')){
-            \Storage::delete('public/test.txt');
+        if(\Storage::disk('public')->exists('test.txt')){
+            \Storage::disk('public')->delete('test.txt');
         }
         for($id=1; $id < 5; $id++) {
-            $this->assertEquals($id, Json::addRecordToJsonFile('public/test.txt', []));
+            $this->assertEquals($id, Json::addRecordToJsonFile('test.txt', []));
         }
-        dump(\Storage::get('public/test.txt'));
-        \Storage::delete('public/test.txt');
+        dump(\Storage::disk('public')->get('test.txt'));
+        \Storage::disk('public')->delete('test.txt');
     }
 }

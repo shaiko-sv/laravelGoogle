@@ -9,6 +9,16 @@ use App\Http\Controllers\Controller;
 class CategoriesCrudController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -32,14 +42,19 @@ class CategoriesCrudController extends Controller
 
             $record = $request->except('_token'); // Receive data except _token
 
-            $id = Category::createCategory($record);
+            $record = Category::createCategory($record);
 
-            if($id){
-                // if record was added it open recent added category to see it
-                return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]));
+            if($record && ($record[0] != false)){
+                // if record was created let's store it
+                $id = $this->store($record);
+                if($id) {
+                    return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]));
+                } else {
+                    return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot write data to file.');
+                }
             } else {
                 // if record was not added it come back to form with error message
-                return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot add Categoty! :(');
+                return redirect(route('admin.categoriesCrud.create'))->with('error',  $record[1]);
             }
         }
         // return view when enter first time
@@ -50,12 +65,13 @@ class CategoriesCrudController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param $record array
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($record = [], Request $request = null)
     {
-        //
+       return Category::storeCategory($record);
     }
 
     /**

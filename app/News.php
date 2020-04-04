@@ -10,22 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class News extends Model
 {
-    private static $path = 'public/';
     private static $fileStorageNews = 'newsJson.txt';
-
-    /**
-     * @return array|mixed
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
-    public static function setNews()
-    {
-        $news = [];
-        $pathToFile = self::$path.self::$fileStorageNews;
-        if(\Storage::exists($pathToFile)) {
-            $news = json_decode(\Storage::get($pathToFile), true);
-        }
-        return $news;
-    }
 
     /**
      * @return array|mixed
@@ -33,7 +18,11 @@ class News extends Model
      */
     public static function getNews()
     {
-        return self::setNews();
+        $fileName = static::$fileStorageNews;
+        if(\Storage::disk('public')->exists($fileName)) {
+            return json_decode(\Storage::disk('public')->get($fileName), true);
+        }
+        return [];
     }
 
     /**
@@ -41,10 +30,10 @@ class News extends Model
      * @return mixed|null
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public static function getNewsId($id)
+    public static function getNewsById($id)
     {
-        if (array_key_exists($id, self::setNews())) {
-            return self::setNews()[$id];
+        if (array_key_exists($id, self::getNews())) {
+            return self::getNews()[$id];
         } else {
             return Null;
         }
@@ -59,7 +48,7 @@ class News extends Model
     {
         $news = [];
         $id = Category::getCategoryIdByName($name);
-        foreach (self::setNews() as $item) {
+        foreach (self::getNews() as $item) {
             if ($item['category_id'] == $id) {
                 $news[] = $item;
             }
@@ -73,7 +62,13 @@ class News extends Model
             $record += ['isPrivate' => 0];              // add this key to data with value 0
         };
 
+        // Return complete record
+        return $record;
+    }
+
+    public static function storeNews($record)
+    {
         // Add record to Json file and return ID of new record
-        return Json::addRecordToJsonFile(static::$path . static::$fileStorageNews, $record);
+        return  Json::addRecordToJsonFile(static::$fileStorageNews, $record);
     }
 }

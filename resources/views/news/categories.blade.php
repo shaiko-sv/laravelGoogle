@@ -19,7 +19,9 @@
                     </div>
                 </div>
             @empty
-                <h2>No categories.</h2>
+                <div class="card">
+                    <div class="card-header">No categories.</div>
+                </div>
             @endforelse
         </div>
     </div>

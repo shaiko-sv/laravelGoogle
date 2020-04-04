@@ -43,8 +43,10 @@ class NewsCrudController extends Controller
 
             $record = $request->except('_token'); // Receive data except _token
 
-            $id = News::createNews($record);
-            if($id){
+            $record = News::createNews($record);
+
+            if($record){
+                $id = $this->store($record);
                 return redirect(route('news.show', ['id' => $id])); // if record was added it open recent added news to see it
             } else {
                 // if record was not added it come back to form with error message
@@ -59,12 +61,13 @@ class NewsCrudController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param $record array
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($record = [], Request $request = null)
     {
-        //
+        return News::storeNews($record);
     }
 
     /**

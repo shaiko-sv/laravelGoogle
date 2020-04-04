@@ -19,19 +19,15 @@ class CategoryTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testSetCategories()
-    {
-        $this->assertNotEmpty(Category::setCategories());
-        $this->assertIsArray(Category::setCategories());
-        $this->assertIsArray(Category::setCategories()[1]);
-        $this->assertEquals(1, Category::setCategories()[1]['id']);
-    }
-
     public function testGetCategories()
     {
+        $this->assertNotEmpty(Category::getCategories());
+        $this->assertIsArray(Category::getCategories());
+        $this->assertIsArray(Category::getCategories()[1]);
+        $this->assertEquals(1, Category::getCategories()[1]['id']);
         $this->assertIsArray(Category::getCategories());
         for($i=1; $i<=count(Category::getCategories()); $i++){
-            $this->assertEquals($i, Category::setCategories()[$i]['id']);
+            $this->assertEquals($i, Category::getCategories()[$i]['id']);
         }
     }
 
