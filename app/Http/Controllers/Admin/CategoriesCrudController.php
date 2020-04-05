@@ -62,7 +62,7 @@ class CategoriesCrudController extends Controller
         }
         // return view when enter first time
         return view('admin.categoryCreate',
-                        ['categories' => Category::getCategories()]);
+                        ['categories' => \DB::table('categories')->get()]);
     }
 
     /**
