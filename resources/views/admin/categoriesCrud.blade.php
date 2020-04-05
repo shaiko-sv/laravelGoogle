@@ -43,13 +43,13 @@
             <tr>
                 <td>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="{{ $item['id'] }}">
+								<input type="checkbox" id="checkbox1" name="options[]" value="{{ $item->id }}">
 								<label for="checkbox1"></label>
 							</span>
                 </td>
-                <td>{{ $item['id'] }}</td>
-                <td>{{ $item['name'] }}</td>
-                <td>{{ $item['slug'] }}</td>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->slug }}</td>
                 <td>
 {{--                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
                     <a href="#editNewsModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>

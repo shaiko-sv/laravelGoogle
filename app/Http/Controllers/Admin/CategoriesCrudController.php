@@ -25,7 +25,7 @@ class CategoriesCrudController extends Controller
      */
     public function index()
     {
-        return view('admin.categoriesCrud')->with('categories', Category::getCategories());
+        return view('admin.categoriesCrud')->with('categories', \DB::table('categories')->get());
     }
 
     /**
@@ -41,22 +41,24 @@ class CategoriesCrudController extends Controller
             $request->flash();
 
             $record = $request->except('_token'); // Receive data except _token
+            if($record['slug'] === null){
+                $record['slug'] = \Str::slug($record['name']); // we use helper to generate it
+            };
 
-            $record = Category::createCategory($record);
+            // Check if category already exists
+            foreach (\DB::table('categories')->get() as $item){
+                if($item->slug == $record['slug']) {
+                    return redirect(route('admin.categoriesCrud.create'))->with('error',  'Category already exists.');
+                }
+            }
+            $id = \DB::table('categories')->insertGetId($record);
 
-            if($record && !isset($record[0])){
-                // if record was created let's store it
-                $id = $this->store($record);
                 if($id) {
-                    return redirect(route('news.category.show', ['slug' => Category::getCategorySlugById($id)]))
+                    return redirect(route('news.category.show', ['slug' => \DB::table('categories')->find($id)->slug]))
                                     ->with('success', 'Category successfully created!');
                 } else {
-                    return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot write data to file.');
+                    return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot write data to database.');
                 }
-            } else {
-                // if record was not added it come back to form with error message
-                return redirect(route('admin.categoriesCrud.create'))->with('error',  $record[1]);
-            }
         }
         // return view when enter first time
         return view('admin.categoryCreate',

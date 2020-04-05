@@ -68,7 +68,7 @@ Route::group([
         'as' => 'category.',
     ], function () {
         Route::get('/category', 'CategoryController@index')->name('index');
-        Route::get('/category/{name}', 'CategoryController@show')
+        Route::get('/category/{slug}', 'CategoryController@show')
             ->name('show')
             ->where('name','[a-z0-9]+');
     });

@@ -26,7 +26,7 @@ class NewsCrudController extends Controller
      */
     public function index()
     {
-        return view('admin.newsCrud')->with('news', News::getNews());
+        return view('admin.newsCrud')->with('news', \DB::table('news')->get());
     }
 
     /**
@@ -40,7 +40,7 @@ class NewsCrudController extends Controller
         if($request->isMethod('post')) {
             $url = null;
             if ($request->file('image')) {
-                $path = \Storage::putFile('/public/img', $request->file('image'));
+                $path = \Storage::putFile('/img', $request->file('image'));
                 $url = \Storage::url($path);
             }
 
@@ -48,11 +48,11 @@ class NewsCrudController extends Controller
             $request->flash();
 
             $record = $request->except('_token'); // Receive data except _token
+            $record['image'] = '/' . $path;
 
-            $record = News::createNews($record);
+            $id = \DB::table('news')->insertGetId($record);
 
-            if($record){
-                $id = $this->store($record);
+            if($id){
                 return redirect(route('news.show', ['id' => $id]))
                                 ->with('success', 'News successfully created!');; // if record was added it open recent added news to see it
             } else {
@@ -61,7 +61,7 @@ class NewsCrudController extends Controller
             }
         }
         // return view when enter first time
-        return view('admin.newsCreate', ['categories' => Category::getCategories()]
+        return view('admin.newsCreate', ['categories' => \DB::table('categories')->get()]
         );
     }
 

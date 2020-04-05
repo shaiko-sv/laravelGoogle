@@ -69,8 +69,8 @@
                                     <select id="newsCategory" class="form-control"
                                             name="category_id" required>
                                     @forelse($categories as $item)
-                                            <option value="{{ $item['id'] }}"
-                                                    @if ($item['id'] == old('category_id')) selected @endif>{{ $item['name'] }}</option>
+                                            <option value="{{ $item->id }}"
+                                                    @if ($item->id == old('category_id')) selected @endif>{{ $item->name }}</option>
                                     @empty
                                             <option value="null">No categories</option>
                                     @endforelse
