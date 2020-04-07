@@ -37,7 +37,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="#"> Neho.mk</a>
+        <a href="https://neho.mk"> Neho.mk</a>
     </div>
     <!-- Copyright -->
 

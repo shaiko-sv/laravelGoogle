@@ -16,8 +16,8 @@ class NewsController extends Controller
 //        $news = \DB::select('SELECT * FROM news');
             // Read news from table
             $news = \DB::table('news')
-                ->join('categories', 'news.category_id', '=', 'categories.id' )
-                ->select('news.*', 'categories.name as category')
+//                ->join('categories', 'news.category_id', '=', 'categories.id' )
+//                ->select('news.*', 'categories.name as category')
                 ->get();
         }
 

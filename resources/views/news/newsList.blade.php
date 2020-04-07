@@ -22,7 +22,7 @@
                         @else
                             <a href="{{ route('news.show', $item->id ) }}">Read...</a>
                         @endguest
-                         <br>#{{ $item->category }}
+{{--                         <br>#{{ $item->category }}--}}
                         </div>
                   </div>
                  </div>
@@ -42,7 +42,7 @@
                          @else
                              {!! $news->text !!}
                          @endguest
-                             <br>#{{ $news->category }}
+{{--                             <br>#{{ $news->category }}--}}
                      </div>
                  </div>
                  @break

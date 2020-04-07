@@ -20,7 +20,7 @@ class CreateNewsTable extends Migration
             $table->text('text');
             $table->boolean('isPrivate')->default(false);
             $table->string('image')->nullable(true);
-            $table->integer('category_id');
+//            $table->integer('category_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')
                     ->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
