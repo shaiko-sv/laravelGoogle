@@ -25,7 +25,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email"
-                                       name="email" value="test@test.ru"
+                                       name="email" value="admin@example.com"
                                        class="form-control
                                 @error('email')
                                        is-invalid
@@ -48,7 +48,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password"
-                                       name="password" value="12345678"
+                                       name="password" value="adminadmin"
                                        class="form-control
                                 @error('password')
                                            is-invalid

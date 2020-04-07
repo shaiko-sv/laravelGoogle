@@ -17,6 +17,7 @@ class CategoriesSeeder extends Seeder
         'Global',
         'Local',
         'Stupid',
+        'Coronavirus',
     ];
     /**
      * Run the database seeds.
