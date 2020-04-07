@@ -72,9 +72,9 @@ class CategoriesCrudController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($record = [], Request $request = null)
+    public function store(Request $request = null)
     {
-       return Category::storeCategory($record);
+       //
     }
 
     /**
