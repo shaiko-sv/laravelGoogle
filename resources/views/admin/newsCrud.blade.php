@@ -38,7 +38,7 @@
                 <th>Full Text</th>
                 <th>Image</th>
                 <th>Private</th>
-                <th>Category</th>
+{{--                <th>Category</th>--}}
                 <th>Actions</th>
             </tr>
             </thead>
@@ -57,7 +57,7 @@
                 <td>{{ $item->text }}</td>
                 <td>{{ $item->image }}</td>
                 <td>{{ $item->isPrivate }}</td>
-                <td>{{ $item->category_id }}</td>
+{{--                <td>{{ $item->category_id }}</td>--}}
                 <td>
 {{--                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
                     <a href="#editNewsModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
