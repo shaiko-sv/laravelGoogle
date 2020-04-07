@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('main');
 Route::get('/home', 'HomeController@home')->name('home');
+Route::get('/excel', 'HomeController@excel')->name('excel');
 
 Route::redirect('/logout', '/')->name('logout');
 //    Route::get('/logout', 'HomeController@logout')->name('logout');
@@ -76,8 +77,7 @@ Route::group([
 
 Route::get('/about', function () {
     return view('about');
-});
-
+})->name('about');
 
 Route::get('/laravel', function () {
     return view('admin.welcome');
