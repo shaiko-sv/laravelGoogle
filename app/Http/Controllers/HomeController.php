@@ -35,8 +35,8 @@ class HomeController extends Controller
 
     public function excel()
     {
-        if(Excel::writeExcel()) {
-            return $exclFile = \Storage::disk('public')->download('hello world.xlsx');
+        if(Excel::writeExcel('report')) {
+            return $exclFile = \Storage::disk('public')->download('report.xlsx');
 //            return response()->download($exclFile);
 //                ->header('Content-Disposition', 'attachment; filename = hello world.xlsx');
         }
