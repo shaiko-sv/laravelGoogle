@@ -7,7 +7,10 @@
                 <a class="nav-link {{ request()->routeIs('news.category.index')?'active':'' }}" href="{{ route('news.category.index') }}">Categories</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->path() === 'about'?'active':'' }}" href="/about">About</a>
+                <a class="nav-link {{ request()->path() === 'excel'?'active':'' }}" href="{{ route('excel') }}">Excel</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->path() === 'about'?'active':'' }}" href="{{ route('about') }}">About</a>
             </li>
             @auth()
             <li class="nav-item">

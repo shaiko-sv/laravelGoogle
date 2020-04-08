@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Excel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -30,5 +31,15 @@ class HomeController extends Controller
     {
 
         return view('home');
+    }
+
+    public function excel()
+    {
+        if(Excel::writeExcel('report')) {
+            return $exclFile = \Storage::disk('public')->download('report.xlsx');
+//            return response()->download($exclFile);
+//                ->header('Content-Disposition', 'attachment; filename = hello world.xlsx');
+        }
+        return response()->exception;
     }
 }

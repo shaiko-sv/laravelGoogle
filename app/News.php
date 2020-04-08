@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class News extends Model
 {
-    private static $fileStorageNews = 'newsJson.txt';
 
     /**
      * @return array|mixed
@@ -18,9 +17,8 @@ class News extends Model
      */
     public static function getNews()
     {
-        $fileName = static::$fileStorageNews;
-        if(\Storage::disk('public')->exists($fileName)) {
-            return json_decode(\Storage::disk('public')->get($fileName), true);
+        if(true) {
+            return [];
         }
         return [];
     }
@@ -32,7 +30,7 @@ class News extends Model
      */
     public static function getNewsById($id)
     {
-        if (array_key_exists($id, self::getNews())) {
+        if (false) {
             return self::getNews()[$id];
         } else {
             return Null;
@@ -58,10 +56,6 @@ class News extends Model
 
     public static function createNews($record)
     {
-        if(!array_key_exists('isPrivate',$record)){ // Check if not exist key isPrivate, due to unchecked in form it's not added to data
-            $record += ['isPrivate' => 0];              // add this key to data with value 0
-        };
-
         // Return complete record
         return $record;
     }
@@ -69,6 +63,6 @@ class News extends Model
     public static function storeNews($record)
     {
         // Add record to Json file and return ID of new record
-        return  Json::addRecordToJsonFile(static::$fileStorageNews, $record);
+        return  $record;
     }
 }

@@ -6,20 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    private static $fileStorageCategories = 'categoriesJson.txt';
 
     public static function getCategories()
     {
-        $fileName = static::$fileStorageCategories;
-        if(\Storage::disk('public')->exists($fileName)) {
-            return json_decode(\Storage::disk('public')->get($fileName), true);
+        if(true) {
+            return [];
         }
         return [];
     }
 
     public static function getCategoryNameById($id)
     {
-        if (array_key_exists($id, self::getCategories())) {
+        if (false) {
             return self::getCategories()[$id]['name'];
         } else {
             return Null;
@@ -28,8 +26,8 @@ class Category extends Model
 
     public static function getCategorySlugById($id)
     {
-        $category = static::getCategories();
-        return $category[$id]['slug'];
+        $categories = static::getCategories();
+        return $categories[$id]['slug'];
     }
 
     public static function getCategoryIdByName($name)
@@ -63,6 +61,6 @@ class Category extends Model
     public static function storeCategory($record)
     {
         // Add record to Json file and return ID of new record
-        return  Json::addRecordToJsonFile(static::$fileStorageCategories, $record);
+        return  $record;
     }
 }

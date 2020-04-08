@@ -14,15 +14,7 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Create new Category') }}
-                        @if (session('error'))
-                            @component('alert')
-                                @slot('title')
-                                    Error
-                                @endslot
-                                {{ session('error') }}
-                            @endcomponent
-                        @endif
-                    </div>
+                        </div>
                     <div class="card-body">
                         <form method="GET" action="{{ route('admin.categoriesCrud.create') }}">
                             @csrf

@@ -26,7 +26,7 @@ class NewsCrudController extends Controller
      */
     public function index()
     {
-        return view('admin.newsCrud')->with('news', News::getNews());
+        return view('admin.newsCrud')->with('news', \DB::table('news')->get());
     }
 
     /**
@@ -38,23 +38,30 @@ class NewsCrudController extends Controller
     {
 //        Check if request method is POST
         if($request->isMethod('post')) {
+            $url = null;
+            if ($request->file('image')) {
+                $path = \Storage::putFile('/img', $request->file('image'));
+                $url = \Storage::url($path);
+            }
+
 //          Store session data to pass back in form in case of some error
             $request->flash();
 
             $record = $request->except('_token'); // Receive data except _token
+            $record['image'] = '/' . $path;
 
-            $record = News::createNews($record);
+            $id = \DB::table('news')->insertGetId($record);
 
-            if($record){
-                $id = $this->store($record);
-                return redirect(route('news.show', ['id' => $id])); // if record was added it open recent added news to see it
+            if($id){
+                return redirect(route('news.show', ['id' => $id]))
+                                ->with('success', 'News successfully created!');; // if record was added it open recent added news to see it
             } else {
                 // if record was not added it come back to form with error message
                 return redirect(route('admin.newsCrud.create'))->with('error',  'Cannot add News! :(');
             }
         }
         // return view when enter first time
-        return view('admin.newsCreate', ['categories' => Category::getCategories()]
+        return view('admin.newsCreate', ['categories' => \DB::table('categories')->get()]
         );
     }
 
@@ -65,9 +72,9 @@ class NewsCrudController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($record = [], Request $request = null)
+    public function store(Request $request = null)
     {
-        return News::storeNews($record);
+        //
     }
 
     /**

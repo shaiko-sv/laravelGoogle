@@ -24,7 +24,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.newsCrud.create') }}">
+                        <form enctype="multipart/form-data" method="POST" action="{{ route('admin.newsCrud.create') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -55,14 +55,22 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="newsImage" class="col-md-2 col-form-label text-md-right">{{ __('News Image') }}</label>
+
+                                <div class="col-md-8">
+                                    <input type="file" name="image" id="newsImage">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="newsCategory" class="col-md-2 col-form-label text-md-right">{{ __('News Category') }}</label>
 
                                 <div class="col-md-3">
                                     <select id="newsCategory" class="form-control"
                                             name="category_id" required>
                                     @forelse($categories as $item)
-                                            <option value="{{ $item['id'] }}"
-                                                    @if ($item['id'] == old('category_id')) selected @endif>{{ $item['name'] }}</option>
+                                            <option value="{{ $item->id }}"
+                                                    @if ($item->id == old('category_id')) selected @endif>{{ $item->name }}</option>
                                     @empty
                                             <option value="null">No categories</option>
                                     @endforelse
