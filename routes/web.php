@@ -35,10 +35,10 @@ Route::group([
     'as' => 'admin.',
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
-    Route::match(['get', 'post'], '/newsCrud/create', 'NewsCrudController@create')->name('newsCrud.create');
-    Route::resource('/newsCrud', 'NewsCrudController', ['except' => 'create']);
-    Route::resource('/usersCrud', 'UserCrudController');
-    Route::resource('/categoriesCrud', 'CategoriesCrudController');
+    Route::match(['get', 'post'], '/news/create', 'NewsController@create')->name('news.create');
+    Route::resource('/news', 'NewsController', ['except' => 'create']);
+    Route::resource('/users', 'UserController');
+    Route::resource('/categories', 'CategoriesController');
     Route::get('/downloadImage', 'IndexController@downloadImage')->name('downloadImage');
     Route::get('/downloadJson', 'IndexController@downloadJson')->name('downloadJson');
 });
@@ -61,15 +61,15 @@ Route::group([
 
 ], function () {
     Route::get('/', 'NewsController@index')->name('index');
-    Route::get('/one/{id}', 'NewsController@show')
+    Route::get('/one/{news}', 'NewsController@show')
         ->name('show')
         ->where('id','[0-9]+');
 
     Route::group([
-        'as' => 'category.',
+        'as' => 'categories.',
     ], function () {
-        Route::get('/category', 'CategoryController@index')->name('index');
-        Route::get('/category/{slug}', 'CategoryController@show')
+        Route::get('/categories', 'CategoriesController@index')->name('index');
+        Route::get('/categories/{slug}', 'CategoriesController@show')
             ->name('show')
             ->where('name','[a-z0-9]+');
     });

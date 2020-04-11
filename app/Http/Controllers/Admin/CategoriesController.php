@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriesCrudController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,7 +26,8 @@ class CategoriesCrudController extends Controller
      */
     public function index()
     {
-        return view('admin.categoriesCrud')->with('categories', \DB::table('categories')->get());
+        $categories = Category::query()->select(['id', 'name', 'slug'])->paginate(10);
+        return view('admin.categories')->with('categories', $categories)->with('pagination', true);
     }
 
     /**
@@ -80,12 +82,15 @@ class CategoriesCrudController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $name
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
-        //
+        $category = Category::query()->select(['id', 'name'])->where('slug', $name)->get();
+        $news = News::query()
+            ->where('category_id', $category[0]->id);
+        return view('news.category')->with('news', $news);
     }
 
     /**
