@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Category;
 
 class NewsSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class NewsSeeder extends Seeder
     private function generateData(): array
     {
         $faker = Faker\Factory::create();
-//        $category_id = DB::table('categories')->count();
+        $category_id = Category::query()->count();
         $data = [];
         for ($i = 0; $i <= 25; $i++) {
             $data[] = [
@@ -25,7 +26,7 @@ class NewsSeeder extends Seeder
                 'shortText' => $faker->realText(rand(50, 250)),
                 'text' => $faker->realText(rand(1500, 4000)),
                 'isPrivate' => (bool)rand(0,1),
-//                'category_id' => rand(1, $category_id),
+                'category_id' => rand(1, $category_id),
                 'image' => '/img/news' . rand(1,8) .'.jpg',
             ];
         }
