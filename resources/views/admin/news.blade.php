@@ -58,7 +58,7 @@
 {{--                <td>{{ $item->image }}</td>--}}
                 <td>{{ $item->isPrivate }}</td>
                 <td>{{ $item->category_id }}</td>
-                <td>
+                <td class="actions">
 {{--                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
                     <a href="{{ route('admin.news.edit', $item) }}">
                         <button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>

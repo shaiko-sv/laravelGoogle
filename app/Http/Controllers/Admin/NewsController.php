@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\News;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB, Storage;
+use Storage;
+use Illuminate\Http\Response;
 
 class NewsController extends Controller
 {
@@ -23,7 +25,7 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -36,7 +38,8 @@ class NewsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function create(Request $request)
     {
@@ -51,17 +54,12 @@ class NewsController extends Controller
             }
 
 //          Store session data to pass back in form in case of some error
-//            $request->flash();
-//
-//            $record = $request->except('_token'); // Receive data except _token
-//            $record['image'] = '/' . $path;
-//
-//            $id = \DB::table('news')->insertGetId($record);
+            $request->flash();
 
             $news->fill($request->all())->save();
 
 //            if($id){
-                return redirect(route('admin.index'))
+                return redirect(route('admin.news.index'))
                                 ->with('success', 'News successfully created!'); // if record was added it open recent added news to see it
 //            } else {
                 // if record was not added it come back to form with error message
@@ -75,9 +73,8 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param $record array
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request = null)
     {
@@ -88,7 +85,7 @@ class NewsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -101,7 +98,7 @@ class NewsController extends Controller
      * @param  int  $id
      * @param Request $request
      * @param News $news
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Request $request, News $news)
     {
@@ -114,13 +111,13 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param News $news
      * @return void
      */
     public function update(Request $request, News $news)
     {
-        //        Check if request method is POST
+        //        Check if request method is PUT
         if ($request->isMethod('put')) {
             if ($request->file('image')) {
                 $path = \Storage::putFile('/img', $request->file('image'));
@@ -129,7 +126,8 @@ class NewsController extends Controller
             }
             $news->fill($request->all());
             $news->save();
-            return redirect()->route('admin.index')->with('success', 'News successfully updated!');
+            return redirect()->route('admin.news.index')
+                ->with('success', 'News successfully updated!');
         }
     }
 
@@ -138,11 +136,12 @@ class NewsController extends Controller
      *
      * @param News $news
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(News $news)
     {
         $news->delete();
-        return redirect()->route('admin.news.index')->with('success', 'News successfully deleted!');
+        return redirect()->route('admin.news.index')
+            ->with('success', 'News successfully deleted!');
     }
 }
