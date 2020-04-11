@@ -13,7 +13,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Create new News') }}
+                        @if($news->id) {{ __('Edit News') }} @else {{ __('Create new News') }} @endif
                         @if (session('error'))
                             @component('alert')
                                 @slot('title')
@@ -24,15 +24,17 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form enctype="multipart/form-data" method="POST" action="{{ route('admin.newsCrud.create') }}">
+                        <form enctype="multipart/form-data" method="POST" action="@if(!$news->id){{ route('admin.news.create') }}@else{{ route('admin.news.update', $news) }}@endif">
                             @csrf
+                            @if($news->id)
+                                @method('PUT')
+                            @endif
 
                             <div class="form-group row">
                                 <label for="newsTitle" class="col-md-2 col-form-label text-md-right">{{ __('News Title') }}</label>
-
                                 <div class="col-md-8">
                                     <input id="newsTitle" type="text" class="form-control"
-                                           name="title" value="{{ old('title') }}" required autofocus>
+                                           name="title" value="{{ $news->title ? $news->title : old('title') }}" required autofocus>
                                 </div>
                             </div>
 
@@ -41,7 +43,7 @@
 
                                 <div class="col-md-8">
                                     <input id="newsShort" type="text" class="form-control"
-                                           name="shortText" value="{{ old('shortText') }}" required>
+                                           name="shortText" value="{{ $news->shortText ? $news->shortText : old('shortText') }}" required>
                                 </div>
                             </div>
 
@@ -50,7 +52,7 @@
 
                                 <div class="col-md-8">
                                     <textarea id="newsText" type="text" class="form-control" rows="5"
-                                             name="text" required>{{ old('text') }}</textarea>
+                                             name="text" required>{{ $news->text ? $news->text : old('text') }}</textarea>
                                 </div>
                             </div>
 
@@ -80,7 +82,7 @@
 
                             <div class="form-group form-check offset-md-2">
                                 <input id="isPrivate" type="checkbox" class="form-check-input offset-md-2"
-                                       @if (old('isPrivate') == 1) checked @endif
+                                       @if ($news->isPrivate == 1 || old('isPrivate') == 1) checked @endif
                                        name="isPrivate" value="1">
                                 <label class="form-check-label" for="isPrivate">{{ __('Private News?') }}</label>
                             </div>
@@ -88,7 +90,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-2">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Add News') }}
+                                        @if($news->id) {{ __('Edit News') }} @else {{ __('Add News') }} @endif
                                     </button>
                                 </div>
                             </div>
