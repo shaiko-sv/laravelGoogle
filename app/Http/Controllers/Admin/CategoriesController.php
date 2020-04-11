@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\News;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 
 class CategoriesController extends Controller
 {
@@ -22,7 +26,7 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -33,57 +37,58 @@ class CategoriesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @return RedirectResponse|Redirector
      */
     public function create(Request $request)
     {
+        $category = New Category();
         // As GET method is default we check if we have some data
+
         if($request->query()) {
-//            Store session data to pass back in form in case of some error
+//          Store session data to pass back in form in case of some error
             $request->flash();
 
-            $record = $request->except('_token'); // Receive data except _token
-            if($record['slug'] === null){
-                $record['slug'] = \Str::slug($record['name']); // we use helper to generate it
+            // Check if category already exists
+            $data = $request->all();
+            if($data['slug'] === null){
+                $data['slug'] = \Str::slug($data['name']); // we use helper to generate it
             };
 
-            // Check if category already exists
-            foreach (\DB::table('categories')->get() as $item){
-                if($item->slug == $record['slug']) {
-                    return redirect(route('admin.categoriesCrud.create'))->with('error',  'Category already exists.');
-                }
+            if(in_array($data['slug'], Category::pluck('slug')->toArray())){
+                return redirect(route('admin.categories.create'))
+                    ->with('error',  'Category already exists.');
             }
-            $id = \DB::table('categories')->insertGetId($record);
+            $category->fill($data)->save();
 
-                if($id) {
-                    return redirect(route('news.category.show', ['slug' => \DB::table('categories')->find($id)->slug]))
-                                    ->with('success', 'Category successfully created!');
-                } else {
-                    return redirect(route('admin.categoriesCrud.create'))->with('error',  'Cannot write data to database.');
-                }
+            return redirect(route('admin.categories.index',
+                ['slug' => $category->getAttributeValue('slug')]))
+                ->with('success', 'Category successfully created!');
+            // if record doesn't write
+            return redirect(route('admin.categories.create'))
+                ->with('error',  'Cannot write data to database.');
         }
         // return view when enter first time
         return view('admin.categoryCreate',
-                        ['categories' => \DB::table('categories')->get()]);
+            ['category' => $category]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param $record array
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request = null)
     {
-       //
+       return 'store';
     }
 
     /**
      * Display the specified resource.
      *
      * @param  string  $name
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($name)
     {
@@ -96,34 +101,42 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request, Category $category)
     {
-        //
+        return view('admin.categoryCreate', ['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        if ($request->isMethod('put')){
+            $category->fill($request->all())->save();
+        }
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Category successfully updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return Response
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Category successfully deleted!');
     }
 }

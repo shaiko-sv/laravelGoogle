@@ -13,18 +13,21 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Create new Category') }}
+                        @if($category->id) {{ __('Edit Category') }} @else {{ __('Create new Category') }} @endif
                         </div>
                     <div class="card-body">
-                        <form method="GET" action="{{ route('admin.categoriesCrud.create') }}">
+                        <form method="POST" action="@if(!$category->id){{ route('admin.categories.create') }}@else{{ route('admin.categories.update', $category) }}@endif">
                             @csrf
+                            @if($category->id)
+                                @method('PUT')
+                            @endif
 
                             <div class="form-group row">
                                 <label for="categoryName" class="col-md-2 col-form-label text-md-right">{{ __('Category Name') }}</label>
 
                                 <div class="col-md-8">
                                     <input id="categoryName" type="text" class="form-control"
-                                           name="name" value="{{ old('name') }}" required autofocus>
+                                           name="name" value="{{ $category->name ? $category->name : old('name') }}" required autofocus>
                                 </div>
                             </div>
 
@@ -33,14 +36,14 @@
 
                                 <div class="col-md-8">
                                     <input id="categorySlug" type="text" class="form-control"
-                                           name="slug" value="{{ old('slug') }}">
+                                           name="slug" value="{{ $category->slug ? $category->slug : old('slug') }}">
                                 </div>
                             </div>
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-2">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Add Category') }}
+                                        @if($category->id) {{ __('Update Category') }} @else {{ __('Add Category') }} @endif
                                     </button>
                                 </div>
                             </div>

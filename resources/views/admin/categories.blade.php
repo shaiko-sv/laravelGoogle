@@ -50,31 +50,24 @@
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->slug }}</td>
-                <td>
-{{--                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
-                    <a href="#editNewsModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
-{{--                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
-                    <a href="#deleteNewsModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
+                <td class="actions">
+                    <a href="{{ route('admin.categories.edit', $item) }}">
+                        <button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>
+                    <form method="POST" action="{{ route('admin.categories.destroy', $item) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                    <a href="{{ route('news.categories.show', $item->slug) }}">
+                        <button type="button" class="btn btn-info"><i class="fas fa-eye"></i></button></a>
                 </td>
             </tr>
             @empty
-                No news.
+                No categories.
             @endforelse
             </tbody>
         </table>
         {{ $categories->links() }}
-{{--        <div class="clearfix">--}}
-{{--            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>--}}
-{{--            <ul class="pagination">--}}
-{{--                <li class="page-item disabled"><a href="#">Previous</a></li>--}}
-{{--                <li class="page-item"><a href="#" class="page-link">1</a></li>--}}
-{{--                <li class="page-item"><a href="#" class="page-link">2</a></li>--}}
-{{--                <li class="page-item active"><a href="#" class="page-link">3</a></li>--}}
-{{--                <li class="page-item"><a href="#" class="page-link">4</a></li>--}}
-{{--                <li class="page-item"><a href="#" class="page-link">5</a></li>--}}
-{{--                <li class="page-item"><a href="#" class="page-link">Next</a></li>--}}
-{{--            </ul>--}}
-{{--        </div>--}}
     </div>
 </div>
 
