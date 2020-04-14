@@ -12,11 +12,11 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            @forelse( $category as $item )
+            @forelse( $categories as $item )
                 <div class="col-md-6 col-lg-3">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{ route('news.category.show', $item->slug) }}">{{ $item->name }}</a>
+                            <a href="{{ route('news.categories.show', $item->slug) }}">{{ $item->name }}</a>
                         </div>
                     </div>
                 </div>

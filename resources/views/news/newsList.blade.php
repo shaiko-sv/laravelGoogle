@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
      <div class="col-md-12">
          @forelse( $news as $item )
-             @if(is_object($item))
+             @if(is_array($news->all()))
                  <div class="card">
                  <div class="media">
                      <img src="{{ $item->image }}" class="mr-3 w-25" alt="">
@@ -17,12 +17,12 @@
                             @if($item->isPrivate)
                                  <a href="{{ route('login') }}">Register or Login to read...</a>
                             @else
-                                 <a href="{{ route('news.show', $item->id) }}">Read...</a>
+                                 <a href="{{ route('news.show', $item) }}">Read...</a>
                             @endif
                         @else
-                            <a href="{{ route('news.show', $item->id ) }}">Read...</a>
+                            <a href="{{ route('news.show', $item) }}">Read...</a>
                         @endguest
-{{--                         <br>#{{ $item->category }}--}}
+                         <br>#{{ $item->category->name }}
                         </div>
                   </div>
                  </div>
@@ -42,7 +42,7 @@
                          @else
                              {!! $news->text !!}
                          @endguest
-{{--                             <br>#{{ $news->category }}--}}
+                             <br>#{{ $news->category->name }}
                      </div>
                  </div>
                  @break
@@ -53,7 +53,9 @@
                  <div class="card-header">No news.</div>
              </div>
          @endforelse
-
+         @isset($pagination)
+             {{ $news->links() }}
+         @endif
          </div>
      </div>
 </div>

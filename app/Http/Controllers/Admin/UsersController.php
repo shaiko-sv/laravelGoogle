@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
-use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class NewsCrudController extends Controller
+class UsersController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +24,7 @@ class NewsCrudController extends Controller
      */
     public function index()
     {
-        return view('admin.newsCrud')->with('news', \DB::table('news')->get());
+        return view('admin.users');
     }
 
     /**
@@ -34,45 +32,18 @@ class NewsCrudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-//        Check if request method is POST
-        if($request->isMethod('post')) {
-            $url = null;
-            if ($request->file('image')) {
-                $path = \Storage::putFile('/img', $request->file('image'));
-                $url = \Storage::url($path);
-            }
-
-//          Store session data to pass back in form in case of some error
-            $request->flash();
-
-            $record = $request->except('_token'); // Receive data except _token
-            $record['image'] = '/' . $path;
-
-            $id = \DB::table('news')->insertGetId($record);
-
-            if($id){
-                return redirect(route('news.show', ['id' => $id]))
-                                ->with('success', 'News successfully created!');; // if record was added it open recent added news to see it
-            } else {
-                // if record was not added it come back to form with error message
-                return redirect(route('admin.newsCrud.create'))->with('error',  'Cannot add News! :(');
-            }
-        }
-        // return view when enter first time
-        return view('admin.newsCreate', ['categories' => \DB::table('categories')->get()]
-        );
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param $record array
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request = null)
+    public function store(Request $request)
     {
         //
     }

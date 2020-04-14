@@ -18,7 +18,7 @@
                     <h2>Manage <b>News</b></h2>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-end">
-                    <a href="{{ route('admin.newsCrud.create') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> <span>Add New News</span></a>
+                    <a href="{{ route('admin.news.create') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> <span>Add New News</span></a>
                     <a href="#" class="btn btn-danger"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
                 </div>
             </div>
@@ -34,11 +34,11 @@
                 </th>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Short Text</th>
-                <th>Full Text</th>
-                <th>Image</th>
+{{--                <th>Short Text</th>--}}
+{{--                <th>Full Text</th>--}}
+{{--                <th>Image</th>--}}
                 <th>Private</th>
-{{--                <th>Category</th>--}}
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -53,16 +53,23 @@
                 </td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->title }}</td>
-                <td>{{ $item->shortText }}</td>
-                <td>{{ $item->text }}</td>
-                <td>{{ $item->image }}</td>
+{{--                <td>{{ $item->shortText }}</td>--}}
+{{--                <td>{{ $item->text }}</td>--}}
+{{--                <td>{{ $item->image }}</td>--}}
                 <td>{{ $item->isPrivate }}</td>
-{{--                <td>{{ $item->category_id }}</td>--}}
-                <td>
+                <td>{{ $item->category_id }}</td>
+                <td class="actions">
 {{--                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
-                    <a href="#editNewsModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
+                    <a href="{{ route('admin.news.edit', $item) }}">
+                        <button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>
 {{--                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
-                    <a href="#deleteNewsModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
+                    <form method="POST" action="{{ route('admin.news.destroy', $item) }}">
+                        @csrf
+                            @method('DELETE')
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                    <a href="{{ route('admin.news.show', $item) }}">
+                        <button type="button" class="btn btn-info"><i class="fas fa-eye"></i></button></a>
                 </td>
             </tr>
             @empty
@@ -70,18 +77,7 @@
             @endforelse
             </tbody>
         </table>
-        <div class="clearfix">
-            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-            <ul class="pagination">
-                <li class="page-item disabled"><a href="#">Previous</a></li>
-                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-            </ul>
-        </div>
+        {{ $news->links() }}
     </div>
 </div>
 
