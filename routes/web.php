@@ -35,8 +35,7 @@ Route::group([
     'as' => 'admin.',
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
-    Route::match(['get', 'post'], '/news/create', 'NewsController@create')->name('news.create');
-    Route::resource('/news', 'NewsController', ['except' => 'create']);
+    Route::resource('/news', 'NewsController');
     Route::resource('/users', 'UsersController');
     Route::resource('/categories', 'CategoriesController');
     Route::get('/downloadImage', 'IndexController@downloadImage')->name('downloadImage');

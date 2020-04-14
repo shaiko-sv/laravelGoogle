@@ -68,7 +68,7 @@
                             @method('DELETE')
                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                     </form>
-                    <a href="{{ route('news.show', $item) }}">
+                    <a href="{{ route('admin.news.show', $item) }}">
                         <button type="button" class="btn btn-info"><i class="fas fa-eye"></i></button></a>
                 </td>
             </tr>
