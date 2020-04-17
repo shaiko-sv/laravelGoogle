@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('main');
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/excel', 'HomeController@excel')->name('excel');
-
+Route::match(['get','post'], '/profile', 'ProfileController@edit')->name('profile');
 Route::redirect('/logout', '/')->name('logout');
 //    Route::get('/logout', 'HomeController@logout')->name('logout');
 
@@ -33,9 +33,11 @@ Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
     'as' => 'admin.',
+    'middleware' => ['is_admin']
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
     Route::resource('/news', 'NewsController');
+    Route::get('/userAdmin/{user}', 'UsersController@userAdmin')->name('userAdmin');
     Route::resource('/users', 'UsersController');
     Route::resource('/categories', 'CategoriesController');
     Route::get('/downloadImage', 'IndexController@downloadImage')->name('downloadImage');
