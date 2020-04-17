@@ -49,7 +49,7 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Old password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="old-password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="old-password">
 
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -63,7 +63,7 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('New password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="newPassword" type="password" class="form-control @error('password') is-invalid @enderror" name="newPassword" required autocomplete="new-password">
+                                    <input id="newPassword" type="password" class="form-control @error('newPassword') is-invalid @enderror" name="newPassword" autocomplete="new-password">
 
                                     @error('newPassword')
                                     <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm new password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                                 </div>
                             </div>
 
