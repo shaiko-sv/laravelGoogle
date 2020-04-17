@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LoginTest extends DuskTestCase
 {
-//    use DatabaseMigrations;
+    use DatabaseMigrations;
 
     /**
      * A basic browser test example.
@@ -17,18 +17,20 @@ class LoginTest extends DuskTestCase
      * @return void
      * @throws \Throwable
      */
-    public function testBasicExample()
+    public function testLogin()
     {
-//        $user = factory(User::class)->create([
-//            'email' => 'taylor@laravel.com',
-//        ]);
-//
-//        $this->browse(function ($browser) use ($user) {
-//            $browser->visit('/login')
-//                ->type('email', $user->email)
-//                ->type('password', 'password')
-//                ->press('Login')
-//                ->assertPathIs('/');
-//        });
+        $user = factory(User::class)->create([
+            'email' => 'taylor@laravel.com',
+        ]);
+
+        $this->browse(function ($browser) use ($user) {
+            $browser->visit('/login')
+                ->type('email', $user->email)
+                ->type('password', 'password')
+                ->screenshot('loginForm')
+                ->press('Login')
+                ->assertPathIs('/')
+                ->screenshot('loginRedirect');
+        });
     }
 }
