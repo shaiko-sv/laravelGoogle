@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreUser;
+use App\Http\Requests\UpdateUser;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +27,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users');
+        $users = User::query()
+            ->paginate(10);
+
+        return view('admin.users')
+            ->with('users', $users);
     }
 
     /**
@@ -43,7 +50,7 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
         //
     }
@@ -54,7 +61,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
@@ -62,10 +69,10 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return void
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
     }
@@ -73,11 +80,11 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateUser $request
+     * @param User $user
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request, User $user)
     {
         //
     }
@@ -88,8 +95,21 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
+    }
+
+    public function userAdmin(User $user){
+
+
+        if($user->is_admin){
+            $user->is_admin = False;
+        } else {
+            $user->is_admin = True;
+        }
+        $user->save();
+
+        $this->index();
     }
 }

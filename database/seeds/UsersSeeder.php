@@ -8,6 +8,7 @@ class UsersSeeder extends Seeder
         ['name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => '$2y$10$chKzpDkKnHwHShv/wdU7WuoTnzH7c.HLLOqyNyTLMzIfKqc9RAfd.',
+            'is_admin' => true,
 //            'created_at' => '2020-04-07 11:57:29',
 //            'updated_at' => '2020-04-07 11:57:29'
         ],

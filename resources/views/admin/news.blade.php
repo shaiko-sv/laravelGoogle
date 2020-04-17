@@ -18,8 +18,8 @@
                     <h2>Manage <b>News</b></h2>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-end">
-                    <a href="{{ route('admin.news.create') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> <span>Add New News</span></a>
-                    <a href="#" class="btn btn-danger"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
+                    <a href="{{ route('admin.news.create') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> <span>{{ __('Add New News') }}</span></a>
+                    <a href="#" class="btn btn-danger disabled"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
                 </div>
             </div>
         </div>
@@ -47,22 +47,17 @@
             <tr>
                 <td>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="{{ $item->id }}">
+								<input type="checkbox" id="checkbox1" name="options[]" value="{{ $item }}">
 								<label for="checkbox1"></label>
 							</span>
                 </td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->title }}</td>
-{{--                <td>{{ $item->shortText }}</td>--}}
-{{--                <td>{{ $item->text }}</td>--}}
-{{--                <td>{{ $item->image }}</td>--}}
                 <td>{{ $item->isPrivate }}</td>
                 <td>{{ $item->category_id }}</td>
                 <td class="actions">
-{{--                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
                     <a href="{{ route('admin.news.edit', $item) }}">
                         <button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>
-{{--                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
                     <form method="POST" action="{{ route('admin.news.destroy', $item) }}">
                         @csrf
                             @method('DELETE')
