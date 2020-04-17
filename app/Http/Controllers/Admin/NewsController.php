@@ -123,32 +123,30 @@ class NewsController extends Controller
      */
     public function update(News $news, UpdateNews $request)
     {
-        //        Check if request method is PUT
-        if ($request->isMethod('put')) {
 
-            $attribute = 'image'; // attribute of input field from Form
+        $attribute = 'image'; // attribute of input field from Form
 
-            $validated = $request->validated();
+        $validated = $request->validated();
 
-            if($validated){
-                if($file = $this->getFilePath($attribute, '/img', $request)){
+        if($validated){
+            if($file = $this->getFilePath($attribute, '/img', $request)){
+            $news->fill($request->all())
+                ->setAttribute('image', '/' . $file['path'])
+                ->save();
+        } else {
                 $news->fill($request->all())
-                    ->setAttribute('image', '/' . $file['path'])
                     ->save();
-            } else {
-                    $news->fill($request->all())
-                        ->save();
-                };
-                return redirect(route('admin.news.index'))
-                    ->with('success', 'News successfully updated!'); // if record was updated it open news CRUD page
-            } else {
-                // if record was not added it come back to form with error message
-                // Store session data to pass back in form in case of some error
-                $request->flash();
-                return redirect(route('admin.news.create'))
-                    ->with('error',  'Cannot update News! :(');
-            }
+            };
+            return redirect(route('admin.news.index'))
+                ->with('success', 'News successfully updated!'); // if record was updated it open news CRUD page
+        } else {
+            // if record was not added it come back to form with error message
+            // Store session data to pass back in form in case of some error
+            $request->flash();
+            return redirect(route('admin.news.create'))
+                ->with('error',  'Cannot update News! :(');
         }
+
     }
 
     /**

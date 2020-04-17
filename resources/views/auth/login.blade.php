@@ -30,7 +30,7 @@
                                 @error('email')
                                        is-invalid
                                 @enderror"
-                                       required autocomplete="email" autofocus>
+                                       autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -53,7 +53,7 @@
                                 @error('password')
                                            is-invalid
                                 @enderror"
-                                       required autocomplete="current-password">
+                                       autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

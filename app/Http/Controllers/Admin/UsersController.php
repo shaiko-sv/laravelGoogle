@@ -102,11 +102,8 @@ class UsersController extends Controller
 
     public function userAdmin(User $user)
     {
-        if($user->is_admin){
-            $user->is_admin = False;
-        } else {
-            $user->is_admin = True;
-        }
+        $user->is_admin = !$user->is_admin;
+
         $user->save();
 
         return redirect(route('admin.users.index'));

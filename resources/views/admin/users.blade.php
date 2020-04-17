@@ -66,10 +66,10 @@
                 </td>
                 <td class="actions">
                     <a href="{{ route('admin.users.edit', $user) }}"><button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>
-                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}">
+                    <form method="POST" action="@if(Auth::user() == $user && Auth::user()->is_admin){{ '#' }}@else{{ route('admin.users.destroy', $user) }}@endif">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-danger" @if(Auth::user() == $user && Auth::user()->is_admin){{ 'disabled' }}@endif><i class="fas fa-trash-alt"></i></button>
                     </form>
                     <a href="{{ route('admin.users.show', $user) }}">
                         <button type="button" class="btn btn-info"><i class="fas fa-eye"></i></button></a>
