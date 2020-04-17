@@ -100,9 +100,8 @@ class UsersController extends Controller
         //
     }
 
-    public function userAdmin(User $user){
-
-
+    public function userAdmin(User $user)
+    {
         if($user->is_admin){
             $user->is_admin = False;
         } else {
@@ -110,6 +109,6 @@ class UsersController extends Controller
         }
         $user->save();
 
-        $this->index();
+        return redirect(route('admin.users.index'));
     }
 }
