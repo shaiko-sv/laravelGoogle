@@ -45,8 +45,8 @@
             <tr>
                 <td>
                     <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox1" name="options[]" value="{{ $user }}">
-                        <label for="checkbox1"></label>
+                        <input type="checkbox" id="checkbox{{ $user->id }}" name="options[]" value="{{ $user->id }}">
+                        <label for="checkbox{{ $user->id }}"></label>
                     </span>
                 </td>
                 <td>{{ $user->name }}</td>
