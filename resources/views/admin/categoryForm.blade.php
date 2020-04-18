@@ -27,7 +27,7 @@
 
                                 <div class="col-md-8">
                                     <input id="categoryName" type="text" class="form-control"
-                                           name="name" value="{{ $category->name ? $category->name : old('name') }}" required autofocus>
+                                           name="name" value="{{ $category->name ? $category->name : old('name') }}" autofocus>
                                 </div>
                             </div>
 
