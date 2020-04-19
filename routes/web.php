@@ -36,6 +36,7 @@ Route::group([
     'middleware' => ['is_admin']
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
+    Route::get('/parser', 'ParserController@index')->name('parser');
     Route::resource('/news', 'NewsController');
     Route::get('/userAdmin/{user}', 'UsersController@userAdmin')->name('userAdmin');
     Route::resource('/users', 'UsersController');
