@@ -35,7 +35,7 @@ class CategoriesController extends Controller
 //        } else {
 //            return redirect()->route('news.category.index');
 //        }
-        $category = Category::query()->select(['id', 'name'])->where('slug', $slug)->first();
+        $category = Category::query()->where('slug', $slug)->firstOrFail();
 //        $category->has('category_id')
 //        $news = new News;
 //        $news->category();
