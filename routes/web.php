@@ -78,13 +78,16 @@ Route::group([
 });
 
 Route::get('/about', function () {
-    return view('about');
-})->name('about');
+    return view('about')
+        ;})->name('about');
 
 Route::get('/laravel', function () {
-    return view('admin.welcome');
-});
+    return view('admin.welcome')
+        ;});
 
 Route::view('/vue', 'admin.vue')->name('vue');
+
+Route::get('/auth/vk', 'LoginController@loginVK')->name('vkLogin');
+Route::get('/auth/vk/response', 'LoginController@responseVK')->name('vkResponse');
 
 Auth::routes();
