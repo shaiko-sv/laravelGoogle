@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfile;
+use App\Http\Requests\UpdateUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function edit(Request $request)
+    public function edit(UpdateProfile $request)
     {
         $user = \Auth::user();
 
         $errors = [];
-
         if ($request->isMethod('post')){
+            $request->validated();
             if (Hash::check($request->post('password'), $user->password)){
 
                 if ((($request->post('newPassword')) != '' && ($request->post('password_confirmation') != '')) &&
