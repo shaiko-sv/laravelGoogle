@@ -13,7 +13,7 @@ class UpdateProfile extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,11 +24,12 @@ class UpdateProfile extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:25',
-            'email' => 'required|email|unique:users,email,' . \Auth::id(),
-            'password' => 'required',
-            'newPassword' => 'string|min:3',
-            'is_admin' => 'sometime|in:on',
+            'name' => 'required',
+//            'name' => 'required|min:3|max:25|min:3|max:25',
+//            'email' => 'required|email|unique:users,email,',// . \Auth::id(),
+//            'password' => 'required',
+//            'newPassword' => 'string|min:3',
+//            'is_admin' => 'sometime|in:on',
         ];
     }
 }

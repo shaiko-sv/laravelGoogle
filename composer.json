@@ -15,6 +15,7 @@
         "laravelcollective/html": "5.8",
         "orchestra/parser": "3.8",
         "phpoffice/phpspreadsheet": "^1.11",
+        "socialiteproviders/vkontakte": "^4.0",
         "symfony/http-foundation": "4.4.7"
     },
     "require-dev": {
