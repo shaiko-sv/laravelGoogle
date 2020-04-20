@@ -4,12 +4,10 @@
 namespace App\Adaptors;
 
 use App\User;
-use SocialiteProviders\Manager\OAuth2\User as UserOAuth;
-use tests\Mockery\Adapter\Phpunit\EmptyTestCase;
 
 class Adaptor
 {
-    public function getUserBySocId(UserOAuth $user, string $socName)
+    public function getUserBySocId($user, string $socName)
     {
         $userInSystem = User::query()
             ->where('id_in_soc', $user->id)
@@ -17,10 +15,25 @@ class Adaptor
             ->first();
         if(is_null($userInSystem)){
             $userInSystem = new User();
+            switch ($socName){
+                case 'vk':
+                    $userInSystem->fill([
+                    'email' => $user->accessTokenResponseBody['email']
+                        ]);
+                    break;
+                case 'github':
+                    $userInSystem->fill([
+                        'email' => $user->getEmail(),
+                    ]);
+                    break;
+                default:
+                    $userInSystem->fill([
+                        'email' => 'no@email',
+                    ]);
+            }
             $userInSystem->fill([
                 'name' => $user->getName() ?? '',
-                'email' => $user->accessTokenResponseBody['email'],
-                'password' => '',
+                'password' => 'no_password',
                 'id_in_soc' => $user->getId() ?? '',
                 'type_auth' => $socName,
                 'avatar' => $user->getAvatar() ?? '',

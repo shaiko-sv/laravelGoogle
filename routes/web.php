@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('main');
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/excel', 'HomeController@excel')->name('excel');
-Route::match(['get','post'], '/profile', 'ProfileController@edit')->name('profile');
+Route::resource('profile', 'ProfileController')->only(['show', 'update']);
 Route::redirect('/logout', '/')->name('logout');
 //    Route::get('/logout', 'HomeController@logout')->name('logout');
 
@@ -89,5 +89,8 @@ Route::view('/vue', 'admin.vue')->name('vue');
 
 Route::get('/auth/vk', 'LoginController@loginVK')->name('vkLogin');
 Route::get('/auth/vk/response', 'LoginController@responseVK')->name('vkResponse');
+
+Route::get('/auth/github', 'LoginController@loginGitHub')->name('ghLogin');
+Route::get('/auth/github/response', 'LoginController@responseGitHub')->name('ghResponse');
 
 Auth::routes();

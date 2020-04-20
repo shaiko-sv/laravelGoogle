@@ -25,11 +25,11 @@ class UpdateProfile extends FormRequest
     {
         return [
             'name' => 'required',
-//            'name' => 'required|min:3|max:25|min:3|max:25',
-//            'email' => 'required|email|unique:users,email,',// . \Auth::id(),
-//            'password' => 'required',
-//            'newPassword' => 'string|min:3',
-//            'is_admin' => 'sometime|in:on',
+            'name' => 'required|min:3|max:25|min:3|max:25',
+            'email' => 'required|email',
+            'password' => 'required',
+            'newPassword' => 'string|min:3',
+            'is_admin' => 'sometime|in:on',
         ];
     }
 }
