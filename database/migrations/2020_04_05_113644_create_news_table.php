@@ -15,15 +15,13 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->string('title')->comment('News title');
-            $table->text('shortText');
-            $table->text('text');
+            $table->string('title')->unique()->comment('News title');
+            $table->text('description')->nullable(true)->comment('News description');
+            $table->text('text')->nullable(true)->comment('News text');
             $table->boolean('isPrivate')->default(false);
             $table->string('image')->nullable(true);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')
-                    ->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-//            $table->timestamps();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

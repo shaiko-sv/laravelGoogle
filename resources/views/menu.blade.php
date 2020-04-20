@@ -12,12 +12,11 @@
             <li class="nav-item">
                 <a class="nav-link {{ request()->path() === 'about'?'active':'' }}" href="{{ route('about') }}">About</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('vkLogin')?'active':'' }}" href="{{ route('vkLogin') }}">VK Login</a>
-            </li>
-            @auth()
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.index')?'active':'' }}" href="{{ route('admin.index') }}">Admin</a>
-            </li>
+            @auth
+                @if(Auth::user()->is_admin)
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.index')?'active':'' }}" href="{{ route('admin.index') }}">Admin</a>
+                    </li>
+                @endif
             @endauth
         </ul>

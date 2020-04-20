@@ -13,17 +13,19 @@ class AlterTableUserAddSocAuth extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('id_in_soc', 20)
-                ->default('')
-                ->comment('id in social net');
-            $table->enum('type_auth', ['site','vk', 'fb', 'github', 'google'])
-                ->default('site')
-                ->comment('Type of authorization');
-            $table->string('avatar', 150)
-                ->default('')
-                ->comment('Link to avatar');
-        });
+        Schema::table('users',
+            function (Blueprint $table) {
+                $table->string('id_in_soc', 20)
+                    ->default('')
+                    ->comment('id in social net');
+                $table->enum('type_auth', ['site', 'vk', 'fb', 'github', 'google'])
+                    ->default('site')
+                    ->comment('Type of authorization');
+                $table->string('avatar', 150)
+                    ->default('')
+                    ->comment('Link to avatar');
+                $table->unique(['email', 'type_auth']);
+            });
     }
 
     /**

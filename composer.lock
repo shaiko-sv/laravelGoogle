@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55c8e7ad2caf5a790dec71f836fa7cb0",
+    "content-hash": "e5e184cf314dbd19648871385dace3f3",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2297,6 +2297,44 @@
                 "uuid"
             ],
             "time": "2020-02-21T04:36:14+00:00"
+        },
+        {
+            "name": "socialiteproviders/github",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/GitHub.git",
+                "reference": "21b926c50ed00e2fd89f418ee96be7d82959ef44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/GitHub/zipball/21b926c50ed00e2fd89f418ee96be7d82959ef44",
+                "reference": "21b926c50ed00e2fd89f418ee96be7d82959ef44",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~2.0 || ~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\GitHub\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Komarev",
+                    "email": "ell@cybercog.su"
+                }
+            ],
+            "description": "GitHub OAuth2 Provider for Laravel Socialite",
+            "time": "2019-09-06T15:27:03+00:00"
         },
         {
             "name": "socialiteproviders/manager",

@@ -36,7 +36,7 @@ class NewsController extends Controller
 //        }
         $news = News::query()->find($id);
         if (!empty($news)) {
-            return view('news.one')->with('news', $news);
+            return redirect()->away($news->link);
         } else {
             return redirect()->route('news.index');
         }

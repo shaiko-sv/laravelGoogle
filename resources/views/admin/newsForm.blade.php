@@ -63,7 +63,7 @@
 
                                 <div class="col-md-8">
                                     <textarea id="newsText" type="text" class="form-control" rows="5"
-                                             name="text">@if ($news->id){{ old('text')}} @else {{ old('text') ?? $news->text ?? "" }}</textarea>
+                                             name="text">@if ($news->id){{ old('text')}} @else {{ old('text') ?? $news->text ?? "" }} @endif</textarea>
                                     @if($errors->has('text'))
                                         <div class="alert alert-danger" role="alert">
                                             <ul>
@@ -123,7 +123,7 @@
 
                             <div class="form-group form-check offset-md-2">
                                 <input id="isPrivate" type="checkbox" class="form-check-input offset-md-2"
-                                       @if (old('isPrivate') == 1) checked @elseif ($news->isPrivate == 1) checked @endif
+                                       @if (old('isPrivate') == 1 || $news->isPrivate == 1) checked @endif
                                        name="isPrivate" value="1">
                                 <label class="form-check-label" for="isPrivate">{{ __('Private News?') }}</label>
                                 @if($errors->has('isPrivate'))
