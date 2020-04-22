@@ -7,7 +7,7 @@
                      <img src="{{ $item->image }}" class="mr-3 w-25" alt="">
                      <div class="media-body">
                          <h5 class="mt-0">{{ $item->title }}</h5>
-                         {{ $item->shortText }}
+                         {{ $item->description }}
 
 {{--                  <div class="card">--}}
 {{--                        <div class="card-header">{{ $item->title }}</div>--}}
@@ -22,7 +22,7 @@
                         @else
                             <a href="{{ $item->link }}">Read...</a>
                         @endguest
-                         <br>#{{ $item->category->name ?? '' }}
+                         <br>#{{ $item->category->name ?? '' }} #{{ $item->pubDate }}
                         </div>
                   </div>
                  </div>

@@ -20,7 +20,7 @@ class NewsController extends Controller
 //                ->select('news.*', 'categories.name as category')
 //                ->get();
 //        $news = News::all();
-        $news = News::query()
+        $news = News::query()->orderBy('pubDate', 'desc')
 //                ->where('isPrivate', false)
                 ->paginate(10);
 

@@ -17,7 +17,7 @@ class AlterTableNewsAddParse extends Migration
             $table->string('link', 255)
                 ->default('#')
                 ->comment('Link to news');
-            $table->date('pubDate')
+            $table->dateTime('pubDate')
                 ->default(now())
                 ->comment('Date of publication');
         });
