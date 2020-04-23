@@ -27,7 +27,7 @@ class UpdateNews extends FormRequest
         $categoryList = (new Category())->getTable();
         return [
             'title' => 'required|min:5|max:20',
-            'shortText' => 'required|min:10',
+            'description' => 'required|min:10',
             'text' => 'required|min:15',
             'category_id' => "required|exists:{$categoryList},id",
             'image' => 'mimes:jpeg,bmp,png|max:1000',
@@ -42,7 +42,7 @@ class UpdateNews extends FormRequest
     {
         return [
             'title' => 'News title',
-            'shortText' =>'Short description',
+            'description' =>'Short description',
             'text' => 'News\'s text',
             'category_id' => 'News category',
             'image' => 'Image',

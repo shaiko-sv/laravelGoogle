@@ -41,15 +41,15 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="newsShort" class="col-md-2 col-form-label text-md-right">{{ __('News Short Text') }}</label>
+                                <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('News Short Text') }}</label>
 
                                 <div class="col-md-8">
-                                    <input id="newsShort" type="text" class="form-control"
-                                           name="shortText" value="{{ old('shortText') ?? $news->shortText }}">
-                                    @if($errors->has('shortText'))
+                                    <input id="description" type="text" class="form-control"
+                                           name="description" value="{{ old('description') ?? $news->description }}">
+                                    @if($errors->has('description'))
                                         <div class="alert alert-danger" role="alert">
                                             <ul>
-                                            @foreach($errors->get('shortText') as $error)
+                                            @foreach($errors->get('description') as $error)
                                                 <li>{{ $error }}</li>
                                             @endforeach
                                             </ul>
@@ -63,7 +63,7 @@
 
                                 <div class="col-md-8">
                                     <textarea id="newsText" type="text" class="form-control" rows="5"
-                                             name="text">@if ($news->id){{ old('text')}} @else {{ old('text') ?? $news->text ?? "" }} @endif</textarea>
+                                             name="text">{{ empty(old()) ? $news->text : old('text')}}</textarea>
                                     @if($errors->has('text'))
                                         <div class="alert alert-danger" role="alert">
                                             <ul>

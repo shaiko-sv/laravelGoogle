@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/apiIsAdmin', function (Request $request){
+    return response()->json(['status'=>'ok', 'id'=>$request->id], JSON_UNESCAPED_UNICODE);
+})->middleware('api');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

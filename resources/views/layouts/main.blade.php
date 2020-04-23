@@ -14,7 +14,7 @@
 
 {{--    @dump (session())--}}
 
-        <div id="app">
+{{--        <div id="app">--}}
 
             <!-- Content here -->
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -109,7 +109,7 @@
             @yield('footer')
 
 {{--        {!! $menu !!}    --}}
-        </div>
+{{--        </div>--}}
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

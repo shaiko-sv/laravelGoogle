@@ -63,6 +63,7 @@
                         </button>
                     </a>
                     @endif
+                        <button data-id="{{ $user->id }}" class="apiIsAdmin">Toggle Admin API</button>
                 </td>
                 <td class="actions">
                     <a href="{{ route('admin.users.edit', $user) }}"><button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>
@@ -83,7 +84,19 @@
         {{ $users->links() }}
     </div>
 </div>
-
+<script>
+    let buttons = document.querySelectorAll('.apiIsAdmin');
+    buttons.forEach((elem)=>{
+        elem.addEventListener('click', ()=> {
+            let id = elem.getAttribute('data-id');
+            (async ()=>{
+                const response = await fetch('/api/apiIsAdmin/?id='+id);
+                const answer = await response.json();
+                console.log(answer);
+            })();
+        })
+})
+</script>
 @endsection
 
 @section('footer')
