@@ -62,8 +62,8 @@
                                 <label for="newsText" class="col-md-2 col-form-label text-md-right">{{ __('News Text') }}</label>
 
                                 <div class="col-md-8">
-                                    <textarea id="newsText" type="text" class="form-control" rows="5"
-                                             name="text">{{ empty(old()) ? $news->text : old('text')}}</textarea>
+                                    <textarea id="my-editor" type="text" class="form-control" rows="5"
+                                             name="text">{!!  empty(old()) ? $news->text : old('text')!!}</textarea>
                                     @if($errors->has('text'))
                                         <div class="alert alert-danger" role="alert">
                                             <ul>
@@ -149,6 +149,18 @@
             </div>
         </div>
     </div>
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+    <script>
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+    </script>
+    <script>
+        CKEDITOR.replace('my-editor', options);
+    </script>
 @endsection
 
 @section('footer')
