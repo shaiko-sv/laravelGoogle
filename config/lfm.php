@@ -12,7 +12,7 @@ return [
 
     // Middlewares which should be applied to all package routes.
     // For laravel 5.1 and before, remove 'web' from the array.
-    'middlewares' => ['web', 'auth'],
+    'middlewares' => ['web', 'auth', 'is_admin'],
 
     // The url to this package. Change it if necessary.
     'url_prefix' => 'laravel-filemanager',
@@ -45,8 +45,8 @@ return [
     // You should create routes to serve images if it is not set to public.
     'base_directory' => 'public',
 
-    'images_folder_name' => 'photos',
-    'files_folder_name'  => 'files',
+    'images_folder_name' => 'img',
+    'files_folder_name'  => 'public',
 
     'shared_folder_name' => 'shares',
     'thumb_folder_name'  => 'thumbs',
@@ -110,7 +110,7 @@ return [
 
     // permissions to be set on file upload.
     'create_file_mode' => 0644,
-    
+
     // If true, it will attempt to chmod the file after upload
     'should_change_file_mode' => true,
 

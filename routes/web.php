@@ -41,6 +41,7 @@ Route::group([
     Route::get('/userAdmin/{user}', 'UsersController@userAdmin')->name('userAdmin');
     Route::resource('/users', 'UsersController');
     Route::resource('/categories', 'CategoriesController');
+    Route::resource('/resources', 'ResourcesController');
     Route::get('/downloadImage', 'IndexController@downloadImage')->name('downloadImage');
     Route::get('/downloadJson', 'IndexController@downloadJson')->name('downloadJson');
 });
