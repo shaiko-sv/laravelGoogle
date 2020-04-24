@@ -14,7 +14,7 @@
 
 {{--    @dump (session())--}}
 
-        <div id="app">
+{{--        <div id="app">--}}
 
             <!-- Content here -->
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -47,19 +47,36 @@
                             @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                        @if(Auth::user()->avatar)
+                                            <img src="{{ Auth::user()->avatar }}" alt="avatar" style="width: 30px">
+                                        @else
+                                            <i class="fas fa-user"></i>
+                                        @endif
+                                            {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('profile.show', Auth::user()) }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('profile-form').submit();">
+                                            {{ __('Profile') }}
+                                        </a>
+                                        <form id="profile-form" action="{{ route('profile.show', Auth::user()) }}" method="GET" style="display: none;">
+                                            @csrf
+                                        </form>
+                                        <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
-
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
+                                    </div>
+
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
                                     </div>
                                 </li>
                             @endguest
@@ -92,7 +109,7 @@
             @yield('footer')
 
 {{--        {!! $menu !!}    --}}
-        </div>
+{{--        </div>--}}
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

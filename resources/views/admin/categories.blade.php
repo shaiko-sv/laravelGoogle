@@ -35,6 +35,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Slug</th>
+                <th>Nr. of News</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -50,6 +51,7 @@
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->slug }}</td>
+                <td>{{ $item->newsCount }}</td>
                 <td class="actions">
                     <a href="{{ route('admin.categories.edit', $item) }}">
                         <button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>

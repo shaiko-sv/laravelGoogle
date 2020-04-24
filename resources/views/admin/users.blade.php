@@ -18,8 +18,8 @@
                     <h2>Manage <b>Users</b></h2>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-end">
-                    <a href="#addUserModal" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle"></i> <span>Add New User</span></a>
-                    <a href="#deleteUserModal" class="btn btn-danger" data-toggle="modal"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle"></i> <span>{{ __('Add New User') }}</span></a>
+                    <a href="#" class="btn btn-danger disabled" data-toggle="modal"><i class="fas fa-minus-circle"></i> <span>Delete</span></a>
                 </div>
             </div>
         </div>
@@ -34,119 +34,69 @@
                 </th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Address</th>
-                <th>Phone</th>
+                <th>Created</th>
+                <th>Is Admin</th>
+                <th>Do/Undo Admin</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
+            @forelse($users as $user)
             <tr>
                 <td>
                     <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                        <label for="checkbox1"></label>
+                        <input type="checkbox" id="checkbox{{ $user->id }}" name="options[]" value="{{ $user->id }}">
+                        <label for="checkbox{{ $user->id }}"></label>
                     </span>
                 </td>
-                <td>Thomas Hardy</td>
-                <td>thomashardy@mail.com</td>
-                <td>89 Chiaroscuro Rd, Portland, USA</td>
-                <td>(171) 555-2222</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->created_at }}</td>
+                <td>{{ $user->is_admin ? 'True' : 'False' }}</td>
                 <td>
-{{--                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
-                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
-{{--                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
-                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
+                    @if(!$user->is_admin)
+                        <a href="{{ route('admin.userAdmin', $user) }}"><button type="button" class="btn btn-success"><i class="fas fa-user-cog"></i></button></a>
+                    @else
+                        <a href="@if(Auth::user() == $user && Auth::user()->is_admin){{ '#' }}@else{{ route('admin.userAdmin', $user) }}@endif">
+                        <button type="button" class="btn btn-success" @if(Auth::user() == $user && Auth::user()->is_admin){{ 'disabled' }}@endif>
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </a>
+                    @endif
+                        <button data-id="{{ $user->id }}" class="apiIsAdmin">Toggle Admin API</button>
+                </td>
+                <td class="actions">
+                    <a href="{{ route('admin.users.edit', $user) }}"><button type="button" class="btn btn-success"><i class="fas fa-pen-square"></i></button></a>
+                    <form method="POST" action="@if(Auth::user() == $user && Auth::user()->is_admin){{ '#' }}@else{{ route('admin.users.destroy', $user) }}@endif">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" @if(Auth::user() == $user && Auth::user()->is_admin){{ 'disabled' }}@endif><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                    <a href="{{ route('admin.users.show', $user) }}">
+                        <button type="button" class="btn btn-info"><i class="fas fa-eye"></i></button></a>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                        <label for="checkbox2"></label>
-                    </span>
-                </td>
-                <td>Dominique Perrier</td>
-                <td>dominiqueperrier@mail.com</td>
-                <td>Obere Str. 57, Berlin, Germany</td>
-                <td>(313) 555-5735</td>
-                <td>
-                    {{--                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
-                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
-                    {{--                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
-                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                        <label for="checkbox3"></label>
-                    </span>
-                </td>
-                <td>Maria Anders</td>
-                <td>mariaanders@mail.com</td>
-                <td>25, rue Lauriston, Paris, France</td>
-                <td>(503) 555-9931</td>
-                <td>
-                    {{--                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
-                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
-                    {{--                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
-                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                        <label for="checkbox4"></label>
-                    </span>
-                </td>
-                <td>Fran Wilson</td>
-                <td>franwilson@mail.com</td>
-                <td>C/ Araquil, 67, Madrid, Spain</td>
-                <td>(204) 619-5731</td>
-                <td>
-                    {{--                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
-                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
-                    {{--                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
-                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                        <label for="checkbox5"></label>
-                    </span>
-                </td>
-                <td>Martin Blank</td>
-                <td>martinblank@mail.com</td>
-                <td>Via Monte Bianco 34, Turin, Italy</td>
-                <td>(480) 631-2097</td>
-                <td>
-                    {{--                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>--}}
-                    <a href="#editUserModal" class="edit" data-toggle="modal"><i class="fas fa-pen-square"></i></a>
-                    {{--                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>--}}
-                    <a href="#deleteUserModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>
+            @empty
+                No users.
+            @endforelse
             </tbody>
         </table>
-        <div class="clearfix">
-            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-            <ul class="pagination">
-                <li class="page-item disabled"><a href="#">Previous</a></li>
-                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-            </ul>
-        </div>
+        {{ $users->links() }}
     </div>
 </div>
-
+<script>
+    let buttons = document.querySelectorAll('.apiIsAdmin');
+    buttons.forEach((elem)=>{
+        elem.addEventListener('click', ()=> {
+            let id = elem.getAttribute('data-id');
+            (async ()=>{
+                const response = await fetch('/api/apiIsAdmin/?id='+id);
+                const answer = await response.json();
+                console.log(answer);
+            })();
+        })
+})
+</script>
 @endsection
 
 @section('footer')

@@ -7,7 +7,7 @@
                      <img src="{{ $item->image }}" class="mr-3 w-25" alt="">
                      <div class="media-body">
                          <h5 class="mt-0">{{ $item->title }}</h5>
-                         {{ $item->shortText }}
+                         {{ $item->description }}
 
 {{--                  <div class="card">--}}
 {{--                        <div class="card-header">{{ $item->title }}</div>--}}
@@ -17,12 +17,12 @@
                             @if($item->isPrivate)
                                  <a href="{{ route('login') }}">Register or Login to read...</a>
                             @else
-                                 <a href="{{ route('news.show', $item) }}">Read...</a>
+                                 <a href="{{ $item->link }}">Read...</a>
                             @endif
                         @else
-                            <a href="{{ route('news.show', $item) }}">Read...</a>
+                            <a href="{{ $item->link }}">Read...</a>
                         @endguest
-                         <br>#{{ $item->category->name }}
+                         <br>#{{ $item->category->name ?? '' }} #{{ $item->pubDate }}
                         </div>
                   </div>
                  </div>
@@ -34,15 +34,16 @@
                              <h5 class="mt-0">{{ $news->title }}</h5>
                          @guest
                              @if($news->isPrivate)
-                                     {{ $news->shortText }}
+                                     {{ $news->description }}
                                  <a href="{{ route('login') }}">Register or Login to read...</a>
                              @else
-                                 {!! $news->text !!}
+                                     {{ $news->description }}
+                                     <a href="{{ $news->link }}">Read...</a>
                              @endif
                          @else
-                             {!! $news->text !!}
+                             {{ redirect($news->link) }}
                          @endguest
-                             <br>#{{ $news->category->name }}
+{{--                             <br>#{{ $news->category->name }}--}}
                      </div>
                  </div>
                  @break

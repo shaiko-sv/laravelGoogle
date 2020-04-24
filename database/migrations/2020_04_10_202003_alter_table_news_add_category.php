@@ -14,7 +14,7 @@ class AlterTableNewsAddCategory extends Migration
     public function up()
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable(true);
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories');
