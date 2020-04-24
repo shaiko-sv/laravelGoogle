@@ -20,7 +20,7 @@ class NewsController extends Controller
 //                ->select('news.*', 'categories.name as category')
 //                ->get();
 //        $news = News::all();
-        $news = News::query()
+        $news = News::query()->orderBy('pubDate', 'desc')
 //                ->where('isPrivate', false)
                 ->paginate(10);
 
@@ -36,7 +36,7 @@ class NewsController extends Controller
 //        }
         $news = News::query()->find($id);
         if (!empty($news)) {
-            return view('news.one')->with('news', $news);
+            return redirect()->away($news->link);
         } else {
             return redirect()->route('news.index');
         }

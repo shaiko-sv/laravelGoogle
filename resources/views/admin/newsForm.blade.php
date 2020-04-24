@@ -27,7 +27,7 @@
                                 <label for="newsTitle" class="col-md-2 col-form-label text-md-right">{{ __('News Title') }}</label>
                                 <div class="col-md-8">
                                     <input id="newsTitle" type="text" class="form-control"
-                                           name="title" value="{{ old('title') ? old('title') : $news->title }}" required autofocus>
+                                           name="title" value="{{ old('title') ?? $news->title }}" autofocus>
                                     @if($errors->has('title'))
                                         <div class="alert alert-danger" role="alert">
                                             <ul>
@@ -45,7 +45,7 @@
 
                                 <div class="col-md-8">
                                     <input id="newsShort" type="text" class="form-control"
-                                           name="shortText" value="{{ old('shortText') ? old('shortText') : $news->shortText }}" required>
+                                           name="shortText" value="{{ old('shortText') ?? $news->shortText }}">
                                     @if($errors->has('shortText'))
                                         <div class="alert alert-danger" role="alert">
                                             <ul>
@@ -63,7 +63,7 @@
 
                                 <div class="col-md-8">
                                     <textarea id="newsText" type="text" class="form-control" rows="5"
-                                             name="text" required>{{ old('text') ? old('text') : $news->text }}</textarea>
+                                             name="text">@if ($news->id){{ old('text')}} @else {{ old('text') ?? $news->text ?? "" }} @endif</textarea>
                                     @if($errors->has('text'))
                                         <div class="alert alert-danger" role="alert">
                                             <ul>
@@ -98,9 +98,13 @@
 
                                 <div class="col-md-3">
                                     <select id="newsCategory" class="form-control"
-                                            name="category_id" required>
+                                            name="category_id">
                                     @forelse($categories as $item)
-                                            <option value="{{ $item->id }}" @if(old('category_id') == $item->id)selected @elseif($news->category_id == $item->id)selected @endif>{{ $item->name }}</option>
+                                            <option
+                                                @if($item->id == old('category_id') ?? $item->id == $news->category_id)
+                                                selected
+                                                @endif
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
                                     @empty
                                             <option value="null">No categories</option>
                                     @endforelse
@@ -119,7 +123,7 @@
 
                             <div class="form-group form-check offset-md-2">
                                 <input id="isPrivate" type="checkbox" class="form-check-input offset-md-2"
-                                       @if (old('isPrivate') == 1) checked @elseif ($news->isPrivate == 1) checked @endif
+                                       @if (old('isPrivate') == 1 || $news->isPrivate == 1) checked @endif
                                        name="isPrivate" value="1">
                                 <label class="form-check-label" for="isPrivate">{{ __('Private News?') }}</label>
                                 @if($errors->has('isPrivate'))

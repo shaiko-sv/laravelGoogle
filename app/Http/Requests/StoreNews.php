@@ -31,7 +31,7 @@ class StoreNews extends FormRequest
             'text' => 'required|min:15',
             'category_id' => "required|exists:{$categoryList},id",
             'image' => 'mimes:jpeg,bmp,png|max:1000',
-            'isPrivate' => 'bool',
+            'isPrivate' => 'sometimes|in:on',
         ];
     }
 

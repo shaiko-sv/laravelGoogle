@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class News extends Model
 {
     protected $fillable = [
-        'title', 'shortText', 'text', 'isPrivate', 'image', 'category_id'
+        'title', 'description', 'text', 'isPrivate', 'image', 'category_id', 'link', 'pubDate'
     ];
     /**
      * @var string

@@ -31,7 +31,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::query()
+        $news = News::query()->orderBy('pubDate', 'desc')
             ->paginate(10);
 
         return view('admin.news')
@@ -42,12 +42,11 @@ class NewsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param News $news
      * @return Response
      */
-    public function create()
+    public function create(News $news)
     {
-        $news = new News();
-
         return view('admin.newsForm',
                 ['news' => $news, 'categories' => Category::query()
                     ->select(['id', 'name'])->get()]);
@@ -60,19 +59,9 @@ class NewsController extends Controller
      */
     public function store(News $news, StoreNews $request)
     {
-        $attribute = 'image'; // attribute of input field from Form
+        $result = $this->saveData($news, $request);
 
-        $validated = $request->validated();
-
-        if($validated){
-            if($file = $this->getFilePath($attribute, '/img', $request)){
-                $news->fill($request->all())
-                    ->setAttribute('image', '/' . $file['path'])
-                    ->save();
-            } else {
-                $news->fill($request->all())
-                    ->save();
-            };
+        if($result) {
             return redirect(route('admin.news.index'))
                 ->with('success', 'News successfully created!'); // if record was added it open news CRUD page
         } else {
@@ -94,7 +83,7 @@ class NewsController extends Controller
     {
         $news = News::query()->find($id);
         if (!empty($news)) {
-            return view('news.one')->with('news', $news);
+            return redirect()->away($news->link);
         } else {
             return redirect()->route('news.index');
         }
@@ -123,32 +112,20 @@ class NewsController extends Controller
      */
     public function update(News $news, UpdateNews $request)
     {
-        //        Check if request method is PUT
-        if ($request->isMethod('put')) {
 
-            $attribute = 'image'; // attribute of input field from Form
+        $result = $this->saveData($news, $request);
 
-            $validated = $request->validated();
-
-            if($validated){
-                if($file = $this->getFilePath($attribute, '/img', $request)){
-                $news->fill($request->all())
-                    ->setAttribute('image', '/' . $file['path'])
-                    ->save();
-            } else {
-                    $news->fill($request->all())
-                        ->save();
-                };
-                return redirect(route('admin.news.index'))
-                    ->with('success', 'News successfully updated!'); // if record was updated it open news CRUD page
-            } else {
-                // if record was not added it come back to form with error message
-                // Store session data to pass back in form in case of some error
-                $request->flash();
-                return redirect(route('admin.news.create'))
-                    ->with('error',  'Cannot update News! :(');
-            }
+        if($result){
+            return redirect(route('admin.news.index'))
+                ->with('success', 'News successfully updated!'); // if record was updated it open news CRUD page
+        } else {
+            // if record was not added it come back to form with error message
+            // Store session data to pass back in form in case of some error
+            $request->flash();
+            return redirect(route('admin.news.create'))
+                ->with('error',  'Cannot update News! :(');
         }
+
     }
 
     /**
@@ -178,6 +155,25 @@ class NewsController extends Controller
             ];
         } else {
             return false;
+        }
+    }
+
+    private function saveData(News $news, $request)
+    {
+        $attribute = 'image'; // attribute of input field from Form
+
+        $validated = $request->validated();
+
+        if ($validated) {
+            if ($file = $this->getFilePath($attribute, '/img', $request)) {
+                $news->fill($request->all())
+                    ->setAttribute('image', '/' . $file['path'])
+                    ->save();
+            } else {
+                $news->fill($request->all())
+                    ->save();
+            }
+            return $news;
         }
     }
 

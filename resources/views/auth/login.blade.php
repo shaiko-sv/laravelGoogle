@@ -30,7 +30,7 @@
                                 @error('email')
                                        is-invalid
                                 @enderror"
-                                       required autocomplete="email" autofocus>
+                                       autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -48,12 +48,12 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password"
-                                       name="password" value="adminadmin"
+                                       name="password" value="12345678"
                                        class="form-control
                                 @error('password')
                                            is-invalid
                                 @enderror"
-                                       required autocomplete="current-password">
+                                       autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -86,6 +86,14 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4 mt-3">
+                        <a class="btn btn-primary" href="{{ route('vkLogin') }}" role="button"><i class="fab fa-vk fa-lg fa-fw"></i></a>
+                        <a class="btn btn-dark" href="{{ route('ghLogin') }}" role="button"><i class="fab fa-github fa-lg fa-fw"></i></a>
+                        <a class="btn btn-primary" href="#" role="button"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                        <a class="btn btn-danger" href="#" role="button"><i class="fab fa-google fa-lg fa-fw"></i></a>
                             </div>
                         </div>
                     </form>

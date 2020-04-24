@@ -31,7 +31,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::query()->select(['id', 'name', 'slug'])->paginate(10);
-        return view('admin.categories')->with('categories', $categories)->with('pagination', true);
+
+        return view('admin.categories')->with('categories', $categories);
     }
 
     /**
@@ -69,7 +70,7 @@ class CategoriesController extends Controller
                 ->with('error',  'Cannot write data to database.');
         }
         // return view when enter first time
-        return view('admin.categoryCreate',
+        return view('admin.categoryForm',
             ['category' => $category]);
     }
 
@@ -107,7 +108,7 @@ class CategoriesController extends Controller
      */
     public function edit(Request $request, Category $category)
     {
-        return view('admin.categoryCreate', ['category' => $category]);
+        return view('admin.categoryForm', ['category' => $category]);
     }
 
     /**
@@ -119,9 +120,8 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        if ($request->isMethod('put')){
-            $category->fill($request->all())->save();
-        }
+        $category->fill($request->all())->save();
+
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category successfully updated!');
     }
@@ -135,7 +135,9 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->news()->delete(); //TODO Show message with information that also will be deleted news which belongs to category.
         $category->delete();
+
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category successfully deleted!');
     }
